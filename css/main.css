@@ -1206,7 +1206,7 @@ h1, h2, h3, h4, h5, h6 {
 /* banner area css
 ============================================================================================ */
 .banner-area {
-  background: url(../img/banner/banner-bg.jpg) center no-repeat;
+  background: url(../img/banner/bg.png) center no-repeat;
   background-size: cover;
   position: relative; }
   @media (max-width: 768px) {
@@ -1282,7 +1282,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #222222; }
 
 .organic-breadcrumb {
-  background: url(../img/banner/common-banner.jpg) center no-repeat;
+  background: url(../img/banner/bg.png) center no-repeat;
   background-size: cover;
   padding-top: 130px; }
   @media (max-width: 991px) {
@@ -5791,3 +5791,33 @@ label {
     color: #ffba00; }
 
 /*# sourceMappingURL=main.css.map */
+/*---------------main page header ----------*/
+.custom-btn {
+  display: inline-block;
+  height: 60px; /* Height of the button */
+  width: 60px;  /* Width of the button */
+  background: -webkit-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+  background: -moz-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+  background: -o-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+  background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%); 
+  border-radius: 50%; /* Rounded button */
+  box-shadow: 0 10px 20px rgba(255, 108, 0, 0.3); /* Shadow effect */
+  text-align: center;
+  line-height: 0; /* Vertically center the text/icon */
+  color: #fff; /* Icon/text color */
+ 
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+.custom-btn:hover {
+  background-color: #ff8c00; /* Change background on hover */
+  box-shadow: 0 12px 25px rgba(255, 108, 0, 0.4); /* Intensify shadow on hover */
+  transform: scale(1.05); /* Slight grow effect on hover */
+}
+
+.custom-btn span {
+  display: inline-block;
+  font-size: 24px; /* Size of the icon/text */
+  vertical-align: middle;
+  color: #fff; /* Icon/text color */
+}
