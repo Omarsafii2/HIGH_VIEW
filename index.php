@@ -133,12 +133,11 @@
 						<!-- single-slide -->
 						<div class="row single-slide">
 							<div class="col-lg-5">
-							<div class="banner-content">
-                     <h1>Discover New Gear!</h1>
-               <p>Equip Yourself for the Wild: Discover the Best in Outdoor Gear!</p>
+						<div class="banner-content">
+    <h1>Explore the <br> Latest Adventure Gear!</h1>
+    <p>Equip Yourself for the Wild: Discover the Best in Outdoor Gear!</p>
     <div class="add-bag d-flex align-items-center">
-	<a class="custom-btn" href="category.php"><span class="lnr-txt">Shop Now</span></a>
-	<span class="add-text text-uppercase">-and Embark on Your Next Journey!</span>
+        <a class="add-btn btn-filled" href="/shop-now">Shop Now</a>
     </div>
 </div>
 							</div>

@@ -45,10 +45,10 @@
       </div>
       <?php
        
-       $email = "john.doe@example.com";
-       $sql = $conn->prepare("SELECT `first_name`, `last_name`, `img` FROM `users` WHERE `email` = :email");
+       $id = 1;
+       $sql = $conn->prepare("SELECT `first_name`, `last_name`, `img` FROM `users` WHERE `id` = :id");
        
-       $sql->bindParam(':email', $email);
+       $sql->bindParam(':id', $id);
        $sql->execute();
        $result = $sql->fetch(PDO::FETCH_ASSOC);
        if(count($result)>0){
@@ -122,7 +122,7 @@
       <span>Support & Communication</span>
     </li>
     <li>
-      <a href="contact.php">
+      <a href="#">
         <i class="fa fa-history"></i>
         <span>Contact History</span>
       </a>
@@ -154,6 +154,7 @@
   <!-- sidebar-wrapper  -->
   <main class="page-content">
     <div class="container-fluid">
+        
       <h2>Welcome back,<?php echo $result['first_name'] ?>! </h2>
       <?php } ?>
       <hr>
@@ -172,72 +173,101 @@
 
         </div>
       </div>
-      <h5>New Arrivals</h5>
+      <h5>Recent Messages</h5>
       <hr>
-      <?php
-    $sql2 = $conn->prepare(" SELECT 
-      `product`.`id`,  `product`.`name` AS product_name, `product`.`price`, 
-      `product`.`category_id`, `product`.`total_rating`, `product`.`subtype_id`,
-      `product_images`.`id`, `product_images`.`front_view`, `product_images`.`side_view`, 
-      `product_images`.`back_view`, `product_images`.`product_id`,
-      `category`.`id`, `category`.`name`
      
-    FROM `product`
-    INNER JOIN 
-    `product_images` 
-      ON
-       `product`.`id` = `product_images`.`product_id`
-    INNER JOIN 
-    `category`
-      ON
-       `product`.`category_id` = `category`.`id`
-    
-  ");
-  
-      $sql2->execute();
-      
-      $result=$sql2->fetchALL(PDO::FETCH_ASSOC);
-      
-      if(count($result)>0){
-        for($i=0; $i<count($result);$i++){
-      ?>
       <div class="row">
-        <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-          <div class="card rounded-0 p-0 shadow-sm">
-          <img src="../img/<?php echo $result[$i]['front_view']; ?>" alt="Product Image">
-            <div class="card-body text-center">
-              <h6 class="card-title"><?php echo $result[$i]['name']; ?> </h6>
-              <p> <?php echo $result[$i]['price'] ?> <small> <small></p>
+      <section style="background-color:#FEFEFC">
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center">
+    <div class="col-md-12 col-lg-12">
+      <div class="card text-body" style="width: 100%;">
+          <div class="card-body p-4">
+            <h4 class="mb-0">Recent Messages</h4>
+            <p class="fw-light mb-4 pb-2">Latest messages by YOU </p>
+
+            <div class="d-flex flex-start">
+            <?php
+       
+       $id = 1;
+       $sql = $conn->prepare("SELECT `first_name`, `last_name`, `img` FROM `users` WHERE `id` = :id");
+       
+       $sql->bindParam(':id', $id);
+       $sql->execute();
+       $result = $sql->fetch(PDO::FETCH_ASSOC);
+       if(count($result)>0){
+        ?>
+              <img class="rounded-circle shadow-1-strong me-3"
+                src="../img/<?php echo $result['img'];?>" alt="avatar" width="60" height="60" />
+              <div>
+           
+          
+                <h6 class="fw-bold mb-1"><?php echo $result['first_name']." " . $result['last_name'];?></h6>
+                <?php }?>
+                
+                <div class="d-flex align-items-center mb-3">
+                  <p class="mb-0">
+                  <?php
+      $id = 1;
+      $sql1 = $conn->prepare("
+      SELECT 
+        `id`, `user_id`, `message`, `status` ,'reply'
+      FROM 
+        `contact`
+      WHERE 
+        `user_id` = :ID
+  ");
+  $sql1->bindParam(':ID',$id);
+      $sql1->execute();
+      
+      $msg=$sql1->fetchALL(PDO::FETCH_ASSOC);
+      
+      if(count($msg)>0){
+        for($i=0; $i<count($msg);$i++){
+      ?>
+                    <span class="badge bg-primary"><?php echo $msg[$i]['status'] ?></span>
+                  </p>
+               
+                </div>
+                <p class="mb-0">
+                  <?php echo $msg[$i]['message'] ?>
+                </p>
+
+                <hr class="my-0" />
+                <p class="mb-0">
+                  <?php
+                  if($msg[$i]['status'] =='replied'){
+                  echo $msg[$i]['reply'];
+                }else{
+                  echo "There is no reply";
+                }
+                  
+                  ?>
+                </p>
+              </div>
             </div>
           </div>
-        </div> -->
-        <div class="col-lg-4 col-md-6">
-							<div class="single-product">
-								<img class="img-fluid" src="../img/<?php echo $result[$i]['front_view']; ?>" alt="">
-								<div class="product-details">
-									<h6><?php echo $result[$i]['product_name']; ?></h6>
-									<div class="price">
-										<h6><?php echo $result[$i]['price'] ?></h6>
-										<!-- <h6 class="l-through">$210.00</h6> -->
-									</div>
-									<div class="prd-bottom">
 
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Wishlist</p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
+          <hr class="my-0" />
+
         
+
+          <hr class="my-0" style="height: 1px;" />
+
+          
+
+          <hr class="my-0" />
+          <?php }}?>
+       
+        </div>
       </div>
+    </div>
+  </div>
+  
+</section>
+      
       <hr>
-<?php }}?>
+
       <footer class="text-center">
         <div class="mb-2">
           <small>
