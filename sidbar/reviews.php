@@ -25,6 +25,7 @@
 	<link rel="stylesheet" href="../css/nouislider.min.css">
 	<link rel="stylesheet" href="../css/bootstrap.css">
 	<link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css" integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous">
 	<script src="https://kit.fontawesome.com/8510d63d0e.js" crossorigin="anonymous"></script>
  
 
@@ -45,10 +46,10 @@
       </div>
       <?php
        
-       $email = "john.doe@example.com";
-       $sql = $conn->prepare("SELECT `first_name`, `last_name`, `img` FROM `users` WHERE `email` = :email");
+       $id = 1;
+       $sql = $conn->prepare("SELECT `first_name`, `last_name`, `img` FROM `users` WHERE `id` = :id");
        
-       $sql->bindParam(':email', $email);
+       $sql->bindParam(':id', $id);
        $sql->execute();
        $result = $sql->fetch(PDO::FETCH_ASSOC);
        if(count($result)>0){
@@ -112,7 +113,7 @@
       </a>
     </li>
     <li>
-      <a href="reviews.php">
+      <a href="#">
         <i class="fa fa-star"></i>
         <span>Reviews</span>
       </a>
@@ -154,6 +155,7 @@
   <!-- sidebar-wrapper  -->
   <main class="page-content">
     <div class="container-fluid">
+        
       <h2>Welcome back,<?php echo $result['first_name'] ?>! </h2>
       <?php } ?>
       <hr>
@@ -172,72 +174,69 @@
 
         </div>
       </div>
-      <h5>New Arrivals</h5>
+      <h5>Reviews History</h5>
       <hr>
-      <?php
-    $sql2 = $conn->prepare(" SELECT 
-      `product`.`id`,  `product`.`name` AS product_name, `product`.`price`, 
-      `product`.`category_id`, `product`.`total_rating`, `product`.`subtype_id`,
-      `product_images`.`id`, `product_images`.`front_view`, `product_images`.`side_view`, 
-      `product_images`.`back_view`, `product_images`.`product_id`,
-      `category`.`id`, `category`.`name`
      
-    FROM `product`
-    INNER JOIN 
-    `product_images` 
-      ON
-       `product`.`id` = `product_images`.`product_id`
-    INNER JOIN 
-    `category`
-      ON
-       `product`.`category_id` = `category`.`id`
-    
-  ");
-  
-      $sql2->execute();
-      
-      $result=$sql2->fetchALL(PDO::FETCH_ASSOC);
-      
-      if(count($result)>0){
-        for($i=0; $i<count($result);$i++){
-      ?>
       <div class="row">
-        <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-          <div class="card rounded-0 p-0 shadow-sm">
-          <img src="../img/<?php echo $result[$i]['front_view']; ?>" alt="Product Image">
-            <div class="card-body text-center">
-              <h6 class="card-title"><?php echo $result[$i]['name']; ?> </h6>
-              <p> <?php echo $result[$i]['price'] ?> <small> <small></p>
+     
+<div class="container">
+<div class="col-md-12">
+ 
+                <div class="bg-white rounded shadow-sm p-4 mb-4 clearfix graph-star-rating">
+                    <h5 class="mb-0 mb-4">Your Ratings and Reviews</h5>
+                   
+                 
+                </div>
+                <div class="bg-white rounded shadow-sm p-4 mb-4 restaurant-detailed-ratings-and-reviews">
+                   
+                    <h5 class="mb-1">All Ratings and Reviews</h5>
+                    <div class="reviews-members pt-4 pb-4">
+                        <?php 
+                        
+                        
+                        
+                        
+                        
+                        
+                        ?>
+                        <div class="media">
+                            <a href="#"><img alt="Generic placeholder image" src="http://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 rounded-pill"></a>
+                            <div class="media-body">
+                                <div class="reviews-members-header">
+                                    <span class="star-rating float-right">
+                                          <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                          <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                          <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                          <a href="#"><i class="icofont-ui-rating active"></i></a>
+                                          <a href="#"><i class="icofont-ui-rating"></i></a>
+                                          </span>
+                                    <h6 class="mb-1"><a class="text-black" href="#">Singh Osahan</a></h6>
+                                    <p class="text-gray">Tue, 20 Mar 2020</p>
+                                </div>
+                                <div class="reviews-members-body">
+                                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections </p>
+                                </div>
+                                <div class="reviews-members-footer">
+                                    <a class="total-like" href="#"><i class="icofont-thumbs-up"></i> 856M</a> <a class="total-like" href="#"><i class="icofont-thumbs-down"></i> 158K</a>
+                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   
+                    <hr>
+                    <a class="text-center w-100 d-block mt-4 font-weight-bold" href="#">See All Reviews</a>
+                </div>
+               
             </div>
-          </div>
-        </div> -->
-        <div class="col-lg-4 col-md-6">
-							<div class="single-product">
-								<img class="img-fluid" src="../img/<?php echo $result[$i]['front_view']; ?>" alt="">
-								<div class="product-details">
-									<h6><?php echo $result[$i]['product_name']; ?></h6>
-									<div class="price">
-										<h6><?php echo $result[$i]['price'] ?></h6>
-										<!-- <h6 class="l-through">$210.00</h6> -->
-									</div>
-									<div class="prd-bottom">
-
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Wishlist</p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-        
-      </div>
+        </div>
+    </div>
+</div>
+</div>
+      
       <hr>
-<?php }}?>
+
       <footer class="text-center">
         <div class="mb-2">
           <small>

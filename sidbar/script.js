@@ -33,3 +33,20 @@ $("#show-sidebar").click(function() {
    
    
 });
+
+
+function appear() {
+  var editForm = document.getElementById('edit');
+  editForm.style.display = 'inline-block';
+}
+
+function hide(){
+  var editForm = document.getElementById('edit');
+   editForm.style.display = 'none';
+}
+
+function toggleTooltip() {
+  const tooltip = document.getElementById('emailTooltip');
+  const isVisible = tooltip.getAttribute('aria-hidden') === 'false';
+  tooltip.setAttribute('aria-hidden', !isVisible);
+}

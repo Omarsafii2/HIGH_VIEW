@@ -100,7 +100,7 @@
       <span>Shopping Information</span>
     </li>
     <li>
-      <a href="orders.php">
+      <a href="#">
         <i class="fa fa-shopping-bag"></i>
         <span>Orders</span>
       </a>
@@ -112,7 +112,7 @@
       </a>
     </li>
     <li>
-      <a href="reviews.php">
+      <a href="#">
         <i class="fa fa-star"></i>
         <span>Reviews</span>
       </a>
@@ -172,30 +172,39 @@
 
         </div>
       </div>
-      <h5>New Arrivals</h5>
+      <h5>Purchase History</h5>
       <hr>
       <?php
-    $sql2 = $conn->prepare(" SELECT 
-      `product`.`id`,  `product`.`name` AS product_name, `product`.`price`, 
-      `product`.`category_id`, `product`.`total_rating`, `product`.`subtype_id`,
-      `product_images`.`id`, `product_images`.`front_view`, `product_images`.`side_view`, 
-      `product_images`.`back_view`, `product_images`.`product_id`,
-      `category`.`id`, `category`.`name`
-     
+
+$ID = 1;
+$sql2 = $conn->prepare("
+    SELECT 
+      `product`.`id`,  
+      `product`.`name` AS product_name, 
+      `product`.`price`, 
+      `product`.`category_id`, 
+      `product`.`total_rating`, 
+      `product`.`subtype_id`,
+      `product_images`.`front_view`, 
+      `product_images`.`side_view`, 
+      `product_images`.`back_view`, 
+      `category`.`name` AS category_name,
+      `favorite`.`user_id`, 
+      `favorite`.`product_id` AS favproduct
     FROM `product`
-    INNER JOIN 
-    `product_images` 
-      ON
-       `product`.`id` = `product_images`.`product_id`
-    INNER JOIN 
-    `category`
-      ON
-       `product`.`category_id` = `category`.`id`
-    
-  ");
-  
-      $sql2->execute();
-      
+    INNER JOIN `product_images` 
+      ON `product`.`id` = `product_images`.`product_id`
+    INNER JOIN `category`
+      ON `product`.`category_id` = `category`.`id`
+    INNER JOIN `favorite`
+      ON `product`.`id` = `favorite`.`product_id`
+    WHERE `favorite`.`user_id` = :id
+");
+
+$sql2->bindparam(':id', $ID);
+$sql2->execute();
+
+
       $result=$sql2->fetchALL(PDO::FETCH_ASSOC);
       
       if(count($result)>0){
