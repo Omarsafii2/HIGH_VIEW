@@ -1,5 +1,5 @@
 
-<?php include ('conn.php')?>
+<?php include ('pages/conn.php')?>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -53,39 +53,22 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Shop</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="category.php">Shop Category</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-product.php">Product Details</a></li>
-									<li class="nav-item"><a class="nav-link" href="checkout.php">Product Checkout</a></li>
-									<li class="nav-item"><a class="nav-link" href="cart.php">Shopping Cart</a></li>
-									<li class="nav-item"><a class="nav-link" href="confirmation.php">Confirmation</a></li>
-								</ul>
+						<li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
+							
+							<li class="nav-item"><a class="nav-link" href="pages/category.php">Shop</a></li>
+					
+							<li class="nav-item"><a class="nav-link" href="pages/blog.php">Blog</a></li>
 							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Blog</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-								</ul>
-							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
-									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-								</ul>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+							<li class="nav-item"><a class="nav-link" href="pages/about_us.php">About Us</a></li>
+							
+							
+							<li class="nav-item"><a class="nav-link" href="pages/contact.php">Contact</a></li>
+							<li ><a class="nav-link custom-btn2" href="pages/login.php"> Login</a></li>
+							<li ><a class="nav-link custom-btn2" href="pages/signup.php"> Sign Up</a></li>
+							
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item"><a href="pages/cart.php" class="cart"><span class="ti-bag"></span></a></li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
@@ -115,13 +98,13 @@
 						<!-- single-slide -->
 						<div class="row single-slide align-items-center d-flex">
 							<div class="col-lg-5 col-md-6">
-								<div class="banner-content">
+							<div class="banner-content">
 								<h1>Gear Up for Adventure!</h1>
-<p>Prepare for Your Next Journey with Top Outdoor Gear and Essentials!</p>
-<div class="add-bag d-flex align-items-center">
-    <a class="custom-btn" href="category.php"><span class="lnr-txt">Explore Now</span></a> 
-    <span class="add-text text-uppercase"></span>
-</div>
+                                  <p>Prepare for Your Next Journey with Top Outdoor Gear and Essentials!</p>
+                                   <div class="add-bag d-flex align-items-center">
+                                      <a class=" custom-btn2" href="pages/category.php"><span class="lnr-txt">Explore Now</span></a> 
+                                           <span class="add-text text-uppercase"></span>
+                                    </div>
 								</div>
 							</div>
 							<div class="col-lg-7">
@@ -137,7 +120,7 @@
     <h1>Explore the <br> Latest Adventure Gear!</h1>
     <p>Equip Yourself for the Wild: Discover the Best in Outdoor Gear!</p>
     <div class="add-bag d-flex align-items-center">
-        <a class="add-btn btn-filled" href="/shop-now">Shop Now</a>
+	<a class="custom-btn1" href="pages/category.php"><span class="lnr-txt">shop Now</span></a> 
     </div>
 </div>
 							</div>
@@ -1073,7 +1056,7 @@
 	<!-- End related-product Area -->
 
 	<!-- start footer Area -->
-	<?php  include("footer.php"); ?>
+	<?php  include("includes/footer.php"); ?>
 	<!-- End footer Area -->
 
 	<script src="js/vendor/jquery-2.2.4.min.js"></script>

@@ -1119,7 +1119,9 @@ h1, h2, h3, h4, h5, h6 {
               border-bottom: none; }
             .header_area .navbar .nav .nav-item.submenu ul .nav-item:hover .nav-link {
               background: #ffba00;
-              color: #fff; }
+              color: #fff; 
+            border-radius: 20px;
+          margin-right: 4px;}
         @media (min-width: 992px) {
           .header_area .navbar .nav .nav-item.submenu:hover ul {
             visibility: visible;
@@ -5791,8 +5793,8 @@ label {
     color: #ffba00; }
 
 /*# sourceMappingURL=main.css.map */
-/*---------------main page header ----------*/
-.custom-btn {
+/*--------------- page header log in and sign up buttons  ----------*/
+.custom_btn1 a{
   display: inline-block;
   height: 60px; /* Height of the button */
   width: 60px;  /* Width of the button */
@@ -5800,7 +5802,7 @@ label {
   background: -moz-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
   background: -o-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
   background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%); 
-  border-radius: 50%; /* Rounded button */
+  border-radius: 20%; /* Rounded button */
   box-shadow: 0 10px 20px rgba(255, 108, 0, 0.3); /* Shadow effect */
   text-align: center;
   line-height: 0; /* Vertically center the text/icon */
@@ -5809,13 +5811,50 @@ label {
   transition: all 0.3s ease; /* Smooth hover transition */
 }
 
-.custom-btn:hover {
+
+.custom-btn1:hover {
   background-color: #ff8c00; /* Change background on hover */
   box-shadow: 0 12px 25px rgba(255, 108, 0, 0.4); /* Intensify shadow on hover */
   transform: scale(1.05); /* Slight grow effect on hover */
 }
 
-.custom-btn span {
+
+.custom-btn1 span {
+  display: inline-block;
+  font-size: 24px; /* Size of the icon/text */
+  vertical-align: middle;
+  color: #fff; /* Icon/text color */
+}
+
+
+/*////////////////////////home page banner buttons/////////////////////////////////////////*/
+.custom_btn2 {
+  display: inline-block;
+  /* height: 60px; /* Height of the button */
+  /* width: 60px;  Width of the button */ 
+  background: -webkit-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+  background: -moz-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+  background: -o-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+  background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%); 
+  border-radius: 20%; /* Rounded button */
+  box-shadow: 0 10px 20px rgba(255, 108, 0, 0.3); /* Shadow effect */
+  text-align: center;
+  line-height: 0; /* Vertically center the text/icon */
+  color: #fff; /* Icon/text color */
+ padding: 10px;
+  transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+
+
+.custom-btn2:hover {
+  background-color: #ff8c00; /* Change background on hover */
+  box-shadow: 0 12px 25px rgba(255, 108, 0, 0.4); /* Intensify shadow on hover */
+  transform: scale(1.05); /* Slight grow effect on hover */
+}
+
+
+.custom-btn2 span {
   display: inline-block;
   font-size: 24px; /* Size of the icon/text */
   vertical-align: middle;
