@@ -50,3 +50,8 @@ function toggleTooltip() {
   const isVisible = tooltip.getAttribute('aria-hidden') === 'false';
   tooltip.setAttribute('aria-hidden', !isVisible);
 }
+
+function theme(){
+  var slide = document.getElementById('sidebar');
+  slide.style.backgroundColor = '#282c33'; 
+}

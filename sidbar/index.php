@@ -1,4 +1,4 @@
-<?php include ('../conn.php')?>
+<?php include ('../pages/conn.php')?>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -38,7 +38,9 @@
   <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
       <div class="sidebar-brand">
-        <a href="#">Profile</a>
+        <a href="index.php">Profile &nbsp <i class="fas fa-sun" style="font-size: 17px; color: black; cursor: pointer;" onclick="theme();"></i></a> 
+        
+
         <div id="close-sidebar">
           <i class="fas fa-times"></i>
         </div>
@@ -270,6 +272,8 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="../js/gmaps.min.js"></script>
 	<script src="../js/main.js"></script>
+
+ 
     
 </body>
 

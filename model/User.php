@@ -7,12 +7,15 @@ private $phone;
 private $email ; 
 private $password;
 private $img;
-private $role ; 
-private $address;
+private $role ;
+private $city;
+private $street;
+private $district;
+private $building_num;
 
 
 
-public function __construct($first_name ,$last_name ,$phone , $email, $password,$img ,$role,Address $address){
+public function __construct($first_name ,$last_name ,$phone , $email, $password,$img ,$role,$city , $street , $district , $building_num){
 $this->first_name=$first_name;
 $this->last_name=$last_name;
 $this->phone=$phone;
@@ -20,7 +23,10 @@ $this->email=$email;
 $this->password=password_hash($password, PASSWORD_DEFAULT);
 $this->img=$img;
 $this->role=$role;
-$this->address=$address;
+$this->city=$city;
+$this->street=$street;
+$this->district=$district;
+$this->building_num=$building_num;
 
 
 }
@@ -81,17 +87,40 @@ public function setRole($role) {
     $this->role = $role;
 }
 
-public function getAddress() {
-    return $this->address;
-}
+    public function getcity(){
+        return $this->city ;
 
-public function setAddress(Address $address) {
-    $this->address = $address;
-}
+    }
 
+    public function setcity($city){
+        $this->city= $city;
+    }
+
+    public function getstreet(){
+        return  $this->street;
+    }
+
+    public function setstreet($street){
+        $this->street=$street;
+    }
+
+    public function getdistrict(){
+        return $this->district;
+    }
+
+    public function setdistrict($district){
+        $this->district=$district;
+    }
+
+    public function getbuilding_num(){
+        return $this->building_num;
+    }
+    public function setbuilding_num($building_num){
+        $this->building_num=$building_num;
+    }
 
 public function getUserInfo() {
-    return "Name: $this->first_name $this->last_name, Phone: $this->phone, Email: $this->email, Role: $this->role, Address: " . $this->address->getFullAddress();
+    return "Name: $this->first_name $this->last_name, Phone: $this->phone, Email: $this->email, Role: $this->role, Address: " . "city:". $this->city . "district:" . $this->district . "street:". $this->street ."building number:" . $this->building_num ;
 }
 
 
