@@ -1,12 +1,8 @@
 <?php
 
 require 'functions.php';
-require 'migrations/2024_10_22_create_products_table.php';
-require_once 'database.php';
 
-$db=new Database();
-$pdo=$db->getConnection();
-
+    
 $routes=[
         '/'=>'views/pages/index.view.php',
         '/shop'=>'views/products/category.php',
