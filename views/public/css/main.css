@@ -1010,8 +1010,9 @@ h1, h2, h3, h4, h5, h6 {
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s; }
+  
   .header_area .main_menu .main_box {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.639);
     margin: 0px auto 0;
     max-width: 1200px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -1020,7 +1021,7 @@ h1, h2, h3, h4, h5, h6 {
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s; }
   .header_area .navbar {
-    background: #fff;
+    background:#fff;
     padding: 0px;
     border: 0px;
     border-radius: 0px; }
@@ -1043,9 +1044,9 @@ h1, h2, h3, h4, h5, h6 {
         text-transform: uppercase;
         padding: 0px;
         display: inline-block;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 500;
-        color: #222222; }
+        color: #151515; }
         @media (min-width: 991px) {
           .header_area .navbar .nav .nav-item .nav-link {
             padding: 10px 0; } }
@@ -1208,7 +1209,7 @@ h1, h2, h3, h4, h5, h6 {
 /* banner area css
 ============================================================================================ */
 .banner-area {
-  background: url(../img/banner/bg.png) center no-repeat;
+  background: url(/views/public/images/bg.png) center no-repeat;
   background-size: cover;
   position: relative; }
   @media (max-width: 768px) {
@@ -1284,7 +1285,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #222222; }
 
 .organic-breadcrumb {
-  background: url(../img/banner/bg.png) center no-repeat;
+  background: url(/views/public/images/bg.png) center no-repeat;
   background-size: cover;
   padding-top: 130px; }
   @media (max-width: 991px) {
@@ -1592,7 +1593,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #f9f9ff; }
   .exclusive-deal-area .exclusive-left {
     position: realtive;
-    background: url(../img/exclusive.jpg) center no-repeat;
+    background: url(/views/public/images/exclusive.jpg) center no-repeat;
     background-size: cover;
     text-align: center;
     padding: 275px 0; }
