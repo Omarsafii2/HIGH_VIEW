@@ -12,13 +12,13 @@ class CreateDiscountTable
             `enddate` date DEFAULT NULL,
             `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`),
-            KEY `id_product` (`id_product`)
-        ) ENGINE = MyISAM DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci";
+            PRIMARY KEY (`id`)
+        ) ENGINE = MyISAM DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;";
     }
     
     public function down()
     {
-        return "DROP TABLE IF EXISTS discount";
+        return "DROP TABLE IF EXISTS `discount`;";
     }
 }
+
