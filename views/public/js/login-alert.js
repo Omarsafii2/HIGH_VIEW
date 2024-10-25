@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
       showAlert("Passwords do not match");
     } else {
       // If all fields are valid, show success popup
-      showSuccessPopup();
+      // showSuccessPopup();
 
       // Reset form fields
       resetForm();
@@ -59,22 +59,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 4000);
   }
 
-  function showSuccessPopup() {
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Registration successful!",
-      showConfirmButton: false,
-      timer: 1500,
-      customClass: {
-        popup: "custom-popup",
-      },
-    });
+  // function showSuccessPopup() {
+  //   Swal.fire({
+  //     position: "center",
+  //     icon: "success",
+  //     title: "Registration successful!",
+  //     showConfirmButton: false,
+  //     timer: 1500,
+  //     customClass: {
+  //       popup: "custom-popup",
+  //     },
+  //   });
 
-    setTimeout(function () {
-      document.getElementById("btn-signin").click(); // Simulate a click to sign in after success
-    }, 1500); // Adjust timing if necessary
-  }
+  //   setTimeout(function () {
+  //     document.getElementById("btn-signin").click(); // Simulate a click to sign in after success
+  //   }, 1500); // Adjust timing if necessary
+  // }
 
   function resetForm() {
     firstName.value = "";
