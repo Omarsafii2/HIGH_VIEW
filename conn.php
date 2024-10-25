@@ -1,9 +1,10 @@
+
 <?php 
 
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbnam="ecommerce";
+$dbname="e_commerce";
 
 
 try {
