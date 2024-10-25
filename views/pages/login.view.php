@@ -1,13 +1,9 @@
 <?php
 // Start session
 session_start();
-require_once 'controller/utils.php';
+// require_once 'controller/utils.php';
 require_once 'model/Dbconn.php';
 
-// Redirect to profile if logged in
-if (Utils::isLoggedIn()) {
-  Utils::redirect('profile.php');
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +19,7 @@ if (Utils::isLoggedIn()) {
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css"
     integrity="sha512-Cb0WDP6lVyVaQJulFMEOBGpkgqU6UAOEBpthbb9BfdhmUXnmYQwobuCm6Xp2YYL6Pd/l0ZA5Up/ijp0fu+nFpQ=="
     crossorigin="anonymous" />
-  <scri src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
-    </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -48,15 +43,15 @@ if (Utils::isLoggedIn()) {
         <button id="btn-signup">Sign up</button>
       </div>
     </div>
+
     <!-- Form Container for Sign Up -->
     <div class="form-container form-c">
       <div class="form" id="Create">
-        <form id="form-email" method="GET" action="">
+        <form id="form-email" method="POST" action="register.php">
           <h1>Create Account</h1>
-          <!-- Social Icons -->
           <div class="social-icons">
-            <a href="#" class="icons"> <i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="icons"> <i class="fab fa-google"></i></a>
+            <a href="#" class="icons"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="icons"><i class="fab fa-google"></i></a>
           </div>
 
           <div class="hr">
@@ -66,67 +61,34 @@ if (Utils::isLoggedIn()) {
           </div>
 
           <div class="image-preview-container">
-            <img
-              id="image-preview"
-              src=""
-              alt="Your Image"
-              style="display: none" />
+            <img id="image-preview" src="" alt="Your Image" style="display: none" />
           </div>
 
           <div>
-            <input
-            
-              name="first_name"
-              type="text"
-              placeholder="First Name"
-              required />
-            <input
-              id="last_name"
-              type="text"
-              placeholder="Last Name"
-              required />
+            <input name="first_name" type="text" placeholder="First Name" required />
+            <input name="last_name" type="text" placeholder="Last Name" required />
             <div>
-              <input id="email" type="email" placeholder="Email" required />
-              <input
-                id="phone"
-                type="number"
-                placeholder="Phone Number"
-                required />
+              <input name="email" type="email" placeholder="Email" required />
+              <input name="phone" type="number" placeholder="Phone Number" required />
             </div>
             <div class="password-container">
               <div class="password-field">
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                  required />
-                <i
-                  class="fas fa-eye"
-                  id="togglePassword"
-                  style="cursor: pointer"></i>
+                <input name="password" type="password" placeholder="Password" required />
+                <i class="fas fa-eye" id="togglePassword" style="cursor: pointer"></i>
               </div>
               <div class="password-field">
-                <input
-                  id="confirm_password"
-                  type="password"
-                  placeholder="Confirm Password"
-                  required />
-                <i
-                  class="fas fa-eye"
-                  id="toggleConfirmPassword"
-                  style="cursor: pointer"></i>
+                <input name="confirm_password" type="password" placeholder="Confirm Password" required />
+                <i class="fas fa-eye" id="toggleConfirmPassword" style="cursor: pointer"></i>
               </div>
             </div>
           </div>
 
           <div>
             <button name="submit" id="btn-signup-submit" type="submit" class="btn">
-              Sign Up
-              <i class="fas fa-sign-in-alt" style="font-size: 17px"></i>
+              Sign Up <i class="fas fa-sign-in-alt" style="font-size: 17px"></i>
             </button>
           </div>
 
-          <!-- Alert Section -->
           <div id="alert" class="alert hide">
             <span class="fas fa-exclamation-circle"></span>
             <span class="msg">Warning: This is a warning alert!</span>
@@ -142,11 +104,9 @@ if (Utils::isLoggedIn()) {
     <div class="form-container">
       <div class="form" id="Login">
         <h1>Sign in</h1>
-
-        <!-- Social Icons -->
         <div class="social-icons">
-          <a href="#" class="icons"> <i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="icons"> <i class="fab fa-google"></i></a>
+          <a href="#" class="icons"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="icons"><i class="fab fa-google"></i></a>
         </div>
 
         <div class="hr">
@@ -155,14 +115,11 @@ if (Utils::isLoggedIn()) {
           <hr />
         </div>
 
-        <!-- Login Form -->
-        <form id="form-email-in">
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
+        <form id="form-email-in" method="POST" action="login.php">
+          <input name="email" type="email" placeholder="Email" required />
+          <input name="password" type="password" placeholder="Password" required />
           <a href="#">Forgot Password?</a>
-          <button form="form-email-in" type="submit" class="btn">
-            Sign In
-          </button>
+          <button type="submit" class="btn">Sign In</button>
         </form>
       </div>
     </div>
@@ -170,9 +127,7 @@ if (Utils::isLoggedIn()) {
 
   <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../views/public/js/login.js"></script>
-  <script src="../views/public/js/login-alert.js"></script>
-
+  <script src="views/public/js/login.js"></script>
+  <script src="views/public/js/login-alert.js"></script>
 </body>
-
 </html>
