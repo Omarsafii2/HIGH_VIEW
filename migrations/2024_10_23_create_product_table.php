@@ -11,6 +11,7 @@ class CreateProductTable
             `img` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
             `description` text COLLATE utf8mb4_general_ci,
             `category_id` int DEFAULT NULL,
+            `created_by` int DEFAULT NULL,  -- Make sure this column is defined
             `is_package` enum('yes', 'no') COLLATE utf8mb4_general_ci DEFAULT 'no',
             `stock` int DEFAULT NULL,
             `total_rating` int DEFAULT '0',
@@ -31,6 +32,6 @@ class CreateProductTable
 
     public function down()
     {
-        return "DROP TABLE IF EXISTS product";
+        return "DROP TABLE IF EXISTS `product`";
     }
 }

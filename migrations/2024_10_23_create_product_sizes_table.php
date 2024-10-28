@@ -18,6 +18,6 @@ class CreateProductSizesTable
 
     public function down()
     {
-        return "DROP TABLE IF EXISTS product_sizes";
+        return "DROP TABLE IF EXISTS `product_sizes`";
     }
 }

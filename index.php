@@ -1,27 +1,20 @@
 <?php
+require  'vendor/autoload.php';
+require 'functions.php';
+require 'app/Router.php';
 
-require_once 'model/Dbconn.php';
-$conn = new conn();
-$pdo = $conn->connect();
+$dotenv=Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
+$router = new Router();
+$router->get('/', 'UserController@index');
+$router->get('/products', 'ProductController@show');
+$router->get('/blog', 'ArticleController@show');
 
-
-$routes=[
-        '/'=>'views/pages/index.view.php',
-        '/shop'=>'views/products/category.php',
-        '/blog'=>'views/pages/blog.view.php',
-        '/single-blog'=>'views/pages/singleBlog.view.php',
-        '/about'=>'views/pages/about.view.php',
-        '/contact'=>'views/pages/contact.view.php',
-        '404'=>'views/pages/404.view.php',
-        '/login'=>'views/pages/login.view.php',
-        '/signup'=>'views/pages/signup.view.php',
-        '/cart'=>'views/products/cart.php',
-];
-
-if(array_key_exists($_SERVER['REQUEST_URI'],$routes)){
-    require $routes[$_SERVER['REQUEST_URI']];
-}else{
-    require 'views/pages/404.view.php';
-}
+// Dispatch the current request URI
+// Dispatch the request
+$requestedRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+//dd($requestedRoute);
+// Dispatch the route
+$router->dispatch($requestedRoute);
 
