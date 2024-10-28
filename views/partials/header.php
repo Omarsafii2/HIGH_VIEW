@@ -1,7 +1,5 @@
 
-<?php require_once 'core/init.php';
-$conn = new conn();
-$pdo = $conn->connect();?>
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -9,7 +7,7 @@ $pdo = $conn->connect();?>
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="views/public/images/done.png">
+	<link rel="shortcut icon" href="../../views/public/images/done.png">
 	<!-- Author Meta -->
 	<meta name="author" content="CodePixar">
 	<!-- Meta Description -->
@@ -23,18 +21,18 @@ $pdo = $conn->connect();?>
 	<!--
 		CSS
 		============================================= -->
-	<link rel="stylesheet" href="views/public/css/linearicons.css">
-	<link rel="stylesheet" href="views/public/css/font-awesome.min.css">
-	<link rel="stylesheet" href="views/public/css/themify-icons.css">
-	<link rel="stylesheet" href="views/public/css/bootstrap.css">
-	<link rel="stylesheet" href="views/public/css/owl.carousel.css">
-	<link rel="stylesheet" href="views/public/css/nice-select.css">
-	<link rel="stylesheet" href="views/public/css/nouislider.min.css">
-	<link rel="stylesheet" href="views/public/css/ion.rangeSlider.css" />
-	<link rel="stylesheet" href="views/public/css/ion.rangeSlider.skinFlat.css" />
-	<link rel="stylesheet" href="views/public/css/magnific-popup.css">
-	<link rel="stylesheet" href="views/public/css/main.css">
-    <link rel="stylesheet" href="views/public/css/404style.css">
+	<link rel="stylesheet" href="../../views/public/css/linearicons.css">
+	<link rel="stylesheet" href="../../views/public/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../views/public/css/themify-icons.css">
+	<link rel="stylesheet" href="../../views/public/css/bootstrap.css">
+	<link rel="stylesheet" href="../../views/public/css/owl.carousel.css">
+	<link rel="stylesheet" href="../../views/public/css/nice-select.css">
+	<link rel="stylesheet" href="../../views/public/css/nouislider.min.css">
+	<link rel="stylesheet" href="../../views/public/css/ion.rangeSlider.css" />
+	<link rel="stylesheet" href="../../views/public/css/ion.rangeSlider.skinFlat.css" />
+	<link rel="stylesheet" href="../../views/public/css/magnific-popup.css">
+	<link rel="stylesheet" href="../../views/public/css/main.css">
+    <link rel="stylesheet" href="../../views/public/css/404style.css">
 
 	<script src="https://kit.fontawesome.com/8510d63d0e.js" crossorigin="anonymous"></script>
 </head>
@@ -47,7 +45,7 @@ $pdo = $conn->connect();?>
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="/"><img src="views/public/images/done.png" alt="" height="80px" width="85px"></a>
+					<a class="navbar-brand logo_h" href="/"><img src="../../views/public/images/done.png" alt="" height="80px" width="85px"></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -61,7 +59,7 @@ $pdo = $conn->connect();?>
 							
 							<li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
 					
-							<li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+							<li class="nav-item"><a class="nav-link" href="/blog/showArticle">Blog</a></li>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
 							

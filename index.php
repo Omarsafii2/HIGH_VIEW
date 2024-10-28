@@ -1,28 +1,15 @@
 <?php
-session_start();
-require_once 'core/init.php';
+require 'vendor/autoload.php';
+require 'functions.php';
+require 'app/Router.php';
 
-$conn = new conn();
-$pdo = $conn->connect();
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
+$router = new Router();
+$router->get('/', 'UserController@index');
+$router->get('/products', 'ProductController@show');
+$router->get('/blog/showArticle', 'ArticleController@showArticle');
 
-
-$routes=[
-        '/'=>'views/pages/index.view.php',
-        '/shop'=>'views/products/category.view.php',
-        '/blog'=>'controller/Article.php',
-        '/single-blog'=>'views/pages/singleBlog.view.php',
-        '/about'=>'views/pages/about.view.php',
-        '/contact'=>'views/pages/contact.view.php',
-        '404'=>'controller/_404.php',
-        '/login'=>'views/pages/login.view.php',
-        '/signup'=>'views/pages/signup.view.php',
-        '/cart'=>'controller/Cart.php',
-];
-
-if(array_key_exists($_SERVER['REQUEST_URI'],$routes)){
-    require $routes[$_SERVER['REQUEST_URI']];
-}else{
-    require 'controller/_404.php';
-}
-
+// Dispatch the current request URI
+$router->dispatch(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));

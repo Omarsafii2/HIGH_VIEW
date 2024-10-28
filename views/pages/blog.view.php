@@ -1,4 +1,4 @@
-<?php include("views/partials/header.php");?>
+<?php include("views/partials/header.php"); ?>
 <!-- End Header Area -->
 
 <!-- Start Banner Area -->
@@ -23,30 +23,34 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="blog_left_sidebar">
-                    <?php foreach($article as $element): ?>
-                        <article class="row blog_item">
-                            <div class="col-md-3">
-                                <div class="blog_info text-right">
-                                    <ul class="blog_meta list">
-                                        <li><a href="#"><?php echo $element['created_at']; ?><i class="lnr lnr-calendar-full"></i></a></li>
-                                        <li><a href="#"><?php echo $element['views']; ?><i class="lnr lnr-eye"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="blog_post">
-                                    <img src="views/public/images/blog/main-blog/<?php echo $element['featured_img']; ?>" alt="">
-                                    <div class="blog_details">
-                                        <a href="single-blog.html">
-                                            <h2><?php echo $element['title']; ?></h2>
-                                        </a>
-                                        <p><?php echo $element['body']; ?></p>
-                                        <a href="/single-blog" class="white_bg_btn">View More</a>
+                    <?php if (!empty($article)) : ?>
+                        <?php foreach ($article as $element): ?>
+                            <article class="row blog_item">
+                                <div class="col-md-3">
+                                    <div class="blog_info text-right">
+                                        <ul class="blog_meta list">
+                                            <li><a href="#"><?php echo htmlspecialchars($element['created_at']); ?><i class="lnr lnr-calendar-full"></i></a></li>
+                                            <li><a href="#"><?php echo htmlspecialchars($element['views']); ?><i class="lnr lnr-eye"></i></a></li>
+                                        </ul>
                                     </div>
                                 </div>
-                            </div>
-                        </article>
-                    <?php endforeach; ?>
+                                <div class="col-md-9">
+                                    <div class="blog_post">
+                                        <img src="views/public/images/blog/cat-post/<?php echo htmlspecialchars($element['featured_img']); ?>" alt="Blog Image">
+                                        <div class="blog_details">
+                                            <a href="single-blog.html">
+                                                <h2><?php echo htmlspecialchars($element['title']); ?></h2>
+                                            </a>
+                                            <p><?php echo htmlspecialchars($element['body']); ?></p>
+                                            <a href="/single-blog" class="white_bg_btn">View More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No articles available.</p>
+                    <?php endif; ?>
 
                     <!-- Pagination -->
                     <nav class="blog-pagination justify-content-center d-flex">
