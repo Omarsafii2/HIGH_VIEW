@@ -14,7 +14,7 @@
 								<h1>Gear Up for Adventure!</h1>
 <p>Prepare for Your Next Journey with Top Outdoor Gear and Essentials!</p>
 <div class="add-bag d-flex align-items-center">
-    <a class="primary-btn" href="category.php"><span class="lnr-txt">Explore Now</span></a> 
+    <a class="primary-btn" href="/shop"><span class="lnr-txt">Explore Now</span></a>
     <span class="add-text text-uppercase"></span>
 </div>
 								</div>
@@ -32,7 +32,7 @@
     <h1>Explore the <br> Latest Adventure Gear!</h1>
     <p>Equip Yourself for the Wild: Discover the Best in Outdoor Gear!</p>
     <div class="add-bag d-flex align-items-center">
-        <a class="primary-btn" href="/shop-now">Shop Now</a>
+        <a class="primary-btn" href="/shop">Shop Now</a>
     </div>
 </div>
 							</div>
@@ -763,7 +763,7 @@
 							</div>
 						</div>
 					</div>
-					<a href="" class="primary-btn">Shop Now</a>
+					<a href="/shop" class="primary-btn">Shop Now</a>
 				</div>
 				<div class="col-lg-6 no-padding exclusive-right">
 					<div class="active-exclusive-product-slider">

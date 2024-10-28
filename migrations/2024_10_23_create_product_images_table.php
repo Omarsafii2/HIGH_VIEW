@@ -13,8 +13,7 @@ class CreateProductImagesTable
             `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
-            KEY `product_id` (`product_id`),
-            KEY `fk_user` (`created_by`)
+            KEY `product_id` (`product_id`)
         ) ENGINE = MyISAM DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci";
     }
 

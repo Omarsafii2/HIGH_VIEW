@@ -1,5 +1,5 @@
 
-<?php require_once 'model/Dbconn.php';
+<?php require_once 'core/init.php';
 $conn = new conn();
 $pdo = $conn->connect();?>
 <!DOCTYPE html>
@@ -9,7 +9,7 @@ $pdo = $conn->connect();?>
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/fav.png">
+	<link rel="shortcut icon" href="views/public/images/done.png">
 	<!-- Author Meta -->
 	<meta name="author" content="CodePixar">
 	<!-- Meta Description -->
@@ -19,7 +19,7 @@ $pdo = $conn->connect();?>
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>Karma Shop</title>
+	<title>High view</title>
 	<!--
 		CSS
 		============================================= -->
@@ -34,6 +34,8 @@ $pdo = $conn->connect();?>
 	<link rel="stylesheet" href="views/public/css/ion.rangeSlider.skinFlat.css" />
 	<link rel="stylesheet" href="views/public/css/magnific-popup.css">
 	<link rel="stylesheet" href="views/public/css/main.css">
+    <link rel="stylesheet" href="views/public/css/404style.css">
+
 	<script src="https://kit.fontawesome.com/8510d63d0e.js" crossorigin="anonymous"></script>
 </head>
 
@@ -45,7 +47,7 @@ $pdo = $conn->connect();?>
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.php"><img src="views/public/images/Higt_view.png" alt="" height="80px" width="150px"></a>
+					<a class="navbar-brand logo_h" href="/"><img src="views/public/images/done.png" alt="" height="80px" width="85px"></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
