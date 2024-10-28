@@ -59,7 +59,7 @@
 							
 							<li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
 					
-							<li class="nav-item"><a class="nav-link" href="/blog/showArticle">Blog</a></li>
+							<li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
 							</li>
 							<li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
 							

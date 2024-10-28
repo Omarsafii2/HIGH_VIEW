@@ -31,13 +31,15 @@ class Router
         if (isset($this->routes[$method])) {
             foreach ($this->routes[$method] as $route => $callback) {
                 if (preg_match($route, $requestedRoute, $matches)) {
+                  //  echo "Route matched: $route";
                     array_shift($matches);
-
                     if (is_string($callback) && strpos($callback, '@') !== false) {
                         list($controllerName, $methodName) = explode('@', $callback);
                         $controllerFile = 'controllers/' . $controllerName . '.php';
-
+//var_dump($controllerFile);
                         if (file_exists($controllerFile)) {
+//                             var_dump(';lkjhgf');
+
                             require_once $controllerFile;
                             $controller = new $controllerName();
                             call_user_func_array([$controller, $methodName], $matches);
