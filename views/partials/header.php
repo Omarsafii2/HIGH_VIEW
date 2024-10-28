@@ -65,7 +65,7 @@ $pdo = $conn->connect();?>
 							
 							
 							<li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-							<li ><a class="nav-link custom-btn2" href="/login"> Login/signup</a></li>
+							<li ><a class="nav-link custom-btn2" href="../views/pages/login.view.php"> Login/signup</a></li>
 							
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
