@@ -1,6 +1,6 @@
 <?php
 
-class CreateOrderProductsTable
+class CreateOrderProductsTable  // Class name should reflect its purpose
 {
     public function up()
     {
@@ -17,11 +17,10 @@ class CreateOrderProductsTable
             KEY `order_id` (`order_id`),
             KEY `product_id` (`product_id`)
         ) ENGINE = MyISAM DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci";
-        
     }
-    
+
     public function down()
     {
-        return "DROP TABLE IF EXISTS order_products";
+        return "DROP TABLE IF EXISTS `order_products`";
     }
 }

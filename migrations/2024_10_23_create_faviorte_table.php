@@ -1,6 +1,6 @@
 <?php
 
-class CreateFavoritesTable
+class CreateFaviorteTable  // Updated class name
 {
     public function up()
     {
@@ -22,6 +22,3 @@ class CreateFavoritesTable
         return "DROP TABLE IF EXISTS `favorite`;";
     }
 }
-
-
-

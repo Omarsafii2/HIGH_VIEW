@@ -5847,22 +5847,13 @@ label {
 }
 
 
-.custom-btn2 {
-  width: 120px; 
-  text-align: center;
-  background-color: #ff8c00; 
-  box-shadow: 0 12px 25px rgba(255, 108, 0, 0.4); 
-  transform: scale(1.05); 
-  border-radius: 50px; 
-  background: linear-gradient(90deg, #ff8c00, rgba(255, 108, 0, 0.4)); /* التدرج اللوني */
-
-}
 
 .custom-btn2:hover {
-  background-color: #ff5f1f; /* Keep background the same on hover */
-  box-shadow: 0 12px 25px rgba(255, 108, 0, 0.4); /* Keep shadow the same */
-  transform: scale(1.05); /* Keep scale effect the same */
+  background-color: #ff8c00; /* Change background on hover */
+  box-shadow: 0 12px 25px rgba(255, 108, 0, 0.4); /* Intensify shadow on hover */
+  transform: scale(1.05); /* Slight grow effect on hover */
 }
+
 
 .custom-btn2 span {
   display: inline-block;

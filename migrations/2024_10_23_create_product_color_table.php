@@ -1,6 +1,6 @@
 <?php
 
-class CreateProductColorsTable
+class CreateProductColorTable  // Updated to match the expected name
 {
     public function up()
     {
@@ -17,6 +17,6 @@ class CreateProductColorsTable
 
     public function down()
     {
-        return "DROP TABLE IF EXISTS product_color";
+        return "DROP TABLE IF EXISTS `product_color`";
     }
 }

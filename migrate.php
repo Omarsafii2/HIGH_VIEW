@@ -1,6 +1,6 @@
 <?php
 
-require_once 'model/Dbconn.php';
+require_once 'core/Dbconn.php';
 $conn = new conn();
 $pdo = $conn->connect();
 
