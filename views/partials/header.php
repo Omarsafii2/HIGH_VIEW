@@ -33,8 +33,13 @@
 	<link rel="stylesheet" href="../../views/public/css/magnific-popup.css">
 	<link rel="stylesheet" href="../../views/public/css/main.css">
     <link rel="stylesheet" href="../../views/public/css/404style.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/components/faqs/faq-3/assets/css/faq-3.css">
 
 	<script src="https://kit.fontawesome.com/8510d63d0e.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -67,6 +72,7 @@
 							<li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
 							<li ><a class="nav-link custom-btn2" href="/login"> Login</a></li>
 							<li ><a class="nav-link custom-btn2" href="/signup"> Sign Up</a></li>
+                            <li ><a class="nav-link custom-btn2" href="/user"> User Profile</a></li>
 							
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
@@ -79,13 +85,16 @@
 				</div>
 			</nav>
 		</div>
-		<div class="search_input" id="search_input_box">
-			<div class="container">
-				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
-					<button type="submit" class="btn"></button>
-					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-				</form>
-			</div>
-		</div>
-	</header>
+        <div class="search_input" id="search_input_box" >
+            <div class="container">
+
+                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+
+                       <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+
+                <div id="searchResults" class="position-absolute bg-white border mt-2" style="display: none; z-index: 1000; width: 95%;">
+                </div>
+            </div>
+        </div>
+
+    </header>

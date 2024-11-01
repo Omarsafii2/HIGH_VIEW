@@ -4169,7 +4169,7 @@ label {
 
 /* End Single Product Area css
 ============================================================================================ */
-/* Cart Area css
+/* CartController Area css
 ============================================================================================ */
 .cart_area {
   padding-top: 100px;
@@ -4191,7 +4191,10 @@ label {
     padding-right: 30px; }
     .cart_inner .table tbody tr td .media .d-flex img {
       border: 1px solid #eeeeee;
-      border-radius: 3px; }
+      border-radius: 3px;
+    width: 150px;
+      height: 150px;
+    }
   .cart_inner .table tbody tr td .media .media-body {
     vertical-align: middle;
     align-self: center; }
@@ -4379,9 +4382,9 @@ label {
   text-transform: uppercase;
   font-weight: 500; }
 
-/* End Cart Area css
+/* End CartController Area css
 ============================================================================================ */
-/* End Cart Area css
+/* End CartController Area css
 ============================================================================================ */
 .check_title h2 {
   font-size: 14px;
@@ -4707,7 +4710,7 @@ label {
       .order_details_table .table tbody tr:last-child td p {
         color: #222222; }
 
-/* End Cart Area css
+/* End CartController Area css
 ============================================================================================ */
 /* Login form Area css
 ============================================================================================ */
@@ -5861,3 +5864,58 @@ label {
   vertical-align: middle;
   color: #fff; /* Icon/text color */
 }
+
+/************************************the orders page *********************************************/
+
+
+ .card-order {
+   transition: transform 0.3s, box-shadow 0.3s;
+ }
+
+.card-order:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.total-orders-card {
+  /* Additional styles specific to total orders card, if needed */
+}
+
+.delivered-orders-card {
+  /* Additional styles specific to delivered orders card, if needed */
+}
+
+.pending-orders-card {
+  /* Additional styles specific to pending orders card, if needed */
+}
+
+.processing-orders-card {
+  /* Additional styles specific to processing orders card, if needed */
+}
+
+.shipped-orders-card {
+  /* Additional styles specific to shipped orders card, if needed */
+}
+
+.canceled-orders-card {
+  /* Additional styles specific to canceled orders card, if needed */
+}
+
+.card-title-order {
+  color: #FFBA01; /* Using your specified color */
+}
+
+.card-subtitle-order {
+  font-weight: 500;
+}
+
+.card-text-order {
+  color: #1e2229; /* A suitable color for text */
+}
+
+.container-order {
+  padding: 20px;
+}
+
+
+

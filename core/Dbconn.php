@@ -18,7 +18,7 @@ public function connect(){
 }
 
 
-     private function query($sql, $data = [])
+     public function query($sql, $data = [])
      {
          try {
              $conn = $this->connect();
