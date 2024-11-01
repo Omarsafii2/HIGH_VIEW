@@ -67,7 +67,7 @@ $(document).ready(function(){
         autoplayTimeout: 5000,
         loop:true,
         nav:true,
-        navText:["<img src='img/product/prev.png'>","<img src='img/product/next.png'>"],
+        navText:["<img src='../images/product/prev.png'>","<img src='../images/product/next.png'>"],
         dots:false
     });
 
@@ -82,7 +82,7 @@ $(document).ready(function(){
       nav:false,
       dots:true
     });
-    
+
     /*=================================
     Javascript for exclusive area carousel
     ==================================*/
@@ -92,7 +92,7 @@ $(document).ready(function(){
         autoplayTimeout: 5000,
         loop:true,
         nav:true,
-        navText:["<img src='img/product/prev.png'>","<img src='img/product/next.png'>"],
+        navText:["<img src='../images/product/prev.png'>","<img src='../images/product/next.png'>"],
         dots:false
     });
 
@@ -112,8 +112,8 @@ $(document).ready(function(){
     .click(function(event) {
       // On-page links
       if (
-        location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
-        && 
+        location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+        &&
         location.hostname == this.hostname
       ) {
         // Figure out element to scroll to
@@ -180,7 +180,7 @@ $(document).ready(function(){
 
     $(document).ready(function() {
         $('#mc_embed_signup').find('form').ajaxChimp();
-    });   
+    });
 
 
 
@@ -249,9 +249,9 @@ $(document).ready(function(){
     $(function(){
 
         if(document.getElementById("price-range")){
-        
+
         var nonLinearSlider = document.getElementById('price-range');
-        
+
         noUiSlider.create(nonLinearSlider, {
             connect: true,
             behaviour: 'tap',
@@ -282,7 +282,7 @@ $(document).ready(function(){
 
     });
 
-    
+
     //-------- Have Cupon Button Text Toggle Change -------//
 
     $('.have-btn').on('click', function(e){
@@ -298,7 +298,7 @@ $(document).ready(function(){
         $('.load-product').fadeIn('slow');
         $(this).fadeOut();
     });
-    
+
 
 
 
@@ -560,6 +560,31 @@ $(document).ready(function(){
       }
 
 
-  
+
 
  });
+// ///////////////////////////////////////////////////////////////////////
+document.querySelectorAll('.btn-outline-danger').forEach(button => {
+    button.addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default form submission
+        console.log('Delete button clicked'); // Debug log
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This will delete the item from your cart!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If confirmed, change form action and submit
+                const form = event.target.closest('form');
+                form.action = '/cart/delete/' + form.querySelector('input[name="product_id"]').value; // Ensure to use the correct product ID
+                console.log('Form action set to:', form.action); // Debug log
+                form.submit(); // Submit the form
+            }
+        });
+    });
+});
