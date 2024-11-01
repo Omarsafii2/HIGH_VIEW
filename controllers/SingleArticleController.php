@@ -1,6 +1,6 @@
 <?php
-
-class SingleArticleContrl
+require 'model/Articles.php';
+class SingleArticleController
 {
 
 }

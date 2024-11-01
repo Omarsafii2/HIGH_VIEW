@@ -42,7 +42,7 @@ function appear() {
 
 function hide(){
   var editForm = document.getElementById('edit');
-   editForm.style.display = 'none';
+  editForm.style.display = 'none';
 }
 
 function toggleTooltip() {
@@ -53,5 +53,5 @@ function toggleTooltip() {
 
 function theme(){
   var slide = document.getElementById('sidebar');
-  slide.style.backgroundColor = '#282c33'; 
+  slide.style.backgroundColor = '#282c33';
 }

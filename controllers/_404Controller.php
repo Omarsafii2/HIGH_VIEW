@@ -1,11 +1,8 @@
 <?php
 
-class _404 extends  Controllers
+class _404Controller
 {
     public function index(){
         $this->view('pages/blog');
     }
 }
-
-$_404 = new _404();
-$_404->index();
