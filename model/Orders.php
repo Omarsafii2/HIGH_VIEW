@@ -165,4 +165,47 @@ WHERE
     }
 
 
+    public function getLast($id) {
+        $stmt = $this->pdo->prepare("SELECT MAX(order_id) AS highest_order_id FROM orders WHERE user_id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['highest_order_id'];
+    }
+
+    public function saveOrder($orderData) {
+        // Start a transaction
+        $this->pdo->beginTransaction();
+
+        try {
+            // Insert into orders
+            $stmt = $this->pdo->prepare("INSERT INTO orders (user_id, order_total, order_status, payment_status, shipping_address, product_quantity, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())");
+            // Calculate total order value and quantity from items
+            $totalOrderValue = 0;
+            $totalProductQuantity = 0;
+            foreach ($orderData['items'] as $item) {
+                $totalOrderValue += $item['total']; // Assuming 'total' is included in item
+                $totalProductQuantity += $item['quantity'];
+            }
+
+            $stmt->execute([$orderData['userId'], $totalOrderValue, 'pending', 'not_paid', $orderData['shipping_address'], $totalProductQuantity]);
+
+            // Get the last inserted order ID
+            $orderId = $this->pdo->lastInsertId();
+
+            // Insert into order_products
+            foreach ($orderData['items'] as $item) {
+                $stmt = $this->pdo->prepare("INSERT INTO order_products (order_id, product_id, quantity, price_at_purchase, total, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())");
+                $stmt->execute([$orderId, $item['product_id'], $item['quantity'], $item['price'], $item['total']]);
+            }
+
+            // Commit transaction
+            $this->pdo->commit();
+            return true;
+        } catch (Exception $e) {
+            // Rollback transaction on error
+            $this->pdo->rollBack();
+            return false;
+        }
+    }
 }

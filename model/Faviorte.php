@@ -49,6 +49,7 @@ WHERE `favorite`.`user_id` = :id;
     }
 
 
+
     public function getFavoriteWithProductDetails()
     {
         $stmt = $this->pdo->prepare("
@@ -68,6 +69,5 @@ WHERE `favorite`.`user_id` = :id;
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
 
 }

@@ -40,6 +40,48 @@
 	<script src="https://kit.fontawesome.com/8510d63d0e.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <?php
+    $isLoggedIn = isset($_SESSION['user']);
+    ?>
+
+    <script>
+        const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginButton = document.getElementById("login-button");
+            const signupButton = document.getElementById("signup-button");
+            const logoutButton = document.getElementById("logout-button");
+            const userProfileButton = document.getElementById("user-profile-button");
+
+            if (isLoggedIn) {
+                loginButton.style.display = "none";
+                signupButton.style.display = "none";
+                logoutButton.style.display = "block";
+                userProfileButton.style.display = "block"; // Show user profile
+            } else {
+                loginButton.style.display = "block";
+                signupButton.style.display = "block";
+                logoutButton.style.display = "none";
+                userProfileButton.style.display = "none"; // Hide user profile
+            }
+
+            // Handle logout
+            logoutButton.addEventListener("click", async function () {
+                try {
+                    const response = await fetch('/logout', { method: 'POST' });
+                    if (response.ok) {
+                        window.location.reload(); // Refresh the page
+                    } else {
+                        console.error("Logout failed");
+                    }
+                } catch (error) {
+                    console.error("Error during logout:", error);
+                }
+            });
+        });
+    </script>
+
+
 </head>
 
 <body>
@@ -64,15 +106,16 @@
 							
 							<li class="nav-item"><a class="nav-link" href="/category">Shop</a></li>
 					
-							<li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
-							</li>
+							<li class="nav-item"> <a class="nav-link" href="/blog">Blog</a></li>
+
 							<li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
 							
 							
 							<li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-							<li ><a class="nav-link custom-btn2" href="/login"> Login</a></li>
-							<li ><a class="nav-link custom-btn2" href="/register"> Sign Up</a></li>
-<!--                            <li ><a class="nav-link custom-btn2" href="/user"> User Profile</a></li>-->
+							<li > <a class="nav-link custom-btn2" href="/login"  id="login-button"> Login</a></li>
+							<li ><a class="nav-link custom-btn2" href="/register" id="signup-button"> Sign Up</a></li>
+                            <li><a class="nav-link custom-btn2" id="user-profile-button" href="/user" style="display: none;">User Profile</a></li>
+                            <li><a class="nav-link custom-btn2" href="/logout" style="display: none" id="logout-button"> Logout</a></li>
 							
 						</ul>
 						<ul class="nav navbar-nav navbar-right">

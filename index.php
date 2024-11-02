@@ -1,9 +1,10 @@
 <?php
+session_start();
 require 'vendor/autoload.php';
 require 'functions.php';
 require 'app/Router.php';
-session_start();
 
+$isLoggedIn = isset($_SESSION['user']);
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
@@ -31,6 +32,7 @@ $router->post('/login', "UserController@loginUser");
 $router->get('/logout', "UserController@logoutUser");
 
 // Additional pages
+$router->post('/contact/submitMessage', 'ContactController@submitMessage');
 $router->get('/contact', "ContactController@showContact");
 $router->get('/terms', "PagesController@showterms");
 $router->get('/delivery', "PagesController@delivery");
@@ -50,11 +52,14 @@ $router->get('/latest-products', 'ProductController@showLatestProducts');
 $router->get('/search', 'SearchController@handleSearch');
 
 // Order checkout routes
-$router->get('/confirmation', 'ConfirmationController@index');
+//$router->get('/confirmation', 'ConfirmationController@index');
+$router->get('/confirmation', 'ConfirmationController@getOrderInfo');
+$router->post('/confirmation/edit', 'ConfirmationController@editUserInfo');
 $router->get('/cart', 'CartController@showCart');
 $router->post('/cart/delete/{id}', 'CartController@deleteFromCart');
 $router->post('/cart/coupon', 'CartController@applyCoupon');
 $router->post('/cart/update', 'CartController@updateCart');
+$router->post('/saveOrder', 'ConfirmationController@confirmOrder');
 
 // Shop routes
 $router->get('/category', 'ProductController@show');

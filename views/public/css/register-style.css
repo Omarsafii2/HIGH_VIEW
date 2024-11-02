@@ -10,7 +10,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('../../../views/public/images/bg.png'); /* Example image URL */
+  background-image: url('../../../views/public/images/bg-log.png'); /* Example image URL */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

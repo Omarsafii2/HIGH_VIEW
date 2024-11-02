@@ -34,6 +34,25 @@
         opacity: 0;
         transform: translateY(-10px);
     }
+
+    .hoveer:hover{
+
+        color:#ffb900 ;
+        transform: scale(1.03);
+        transition: 0.8s;
+        border: 2px solid #ffb900 !important ;
+        border-radius: 20px !important;
+    }
+    .link-hover{
+        color: gray;
+    }
+    .link-hover:hover{
+        color: #ffb900 !important;
+        transform: scale(1.03);
+        transition: 0.3s;
+
+    }
+
 </style>
 
 
@@ -44,9 +63,9 @@
             <div class="col-first">
                 <h1>Shop Category page</h1>
                 <nav class="d-flex align-items-center">
-                    <a href="index.php">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="#" >Shop<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.php">Fashon Category</a>
+                    <a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="/category" >Shop<span class="lnr lnr-arrow-right"></span></a>
+
                 </nav>
             </div>
         </div>
@@ -74,108 +93,42 @@
             <div class="sidebar-categories">
                 <ul>
                     <div class="head" style="background-color: #ffb900">Browse Categories</div>
-
-
-                    <form action="/category/filter" method="POST">
-                        <select name="categorySort" id="">
-                            <?php
-                            // Loop through the users and print
-                            foreach ($categories as $category)
-                            { ?>
-                                <option value="<?php echo $category['id'] ?>">
-                                    <div class=" d-flex   "><a href="" class=" link-hover" ><img src="<?php echo $category['img']?>" alt="" width="50px" height="50px" class="mr-3 border rounded"	><?php echo $category['name'] ."   <i class='fa-solid fa-arrow-right'></i> <br>";?>  </a></div>
-                                </option>
-
-                            <?php } ?>
-                        </select>
-                        <button type="submit" class="btn btn-outline-warning">Sort</button>
-                    </form>
-
+                    <?php
+                    // Loop through the categories and print
+                    foreach ($categories as $category) { ?>
+                        <div class="d-flex border">
+                            <a href="/category/filter?category_id=<?php echo $category['id']; ?>" class="link-hover">
+                                <img src="../views/public/images/category/<?php echo $category['img']; ?>" alt="" width="50px" height="50px" class="mr-3 border rounded">
+                                <?php echo $category['name'] . "   <i class='fa-solid fa-arrow-right'></i><br>"; ?>
+                            </a>
+                        </div>
+                    <?php } ?>
                 </ul>
 
-                <ul class="main-categories">
             </div>
 
 
 
-            <div class="sidebar-filter mt-50">
-                <div class="top-filter-head" style="background-color: #ffb900">Product Filters</div>
-                <div class="common-filter">
-                    <div class="head">Brands</div>
-                    <form action="#">
-                        <ul>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
-                        </ul>
-                    </form>
-                </div>
-                <div class="common-filter">
-                    <div class="head">Color</div>
-                    <form action="#">
-                        <ul>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">Black
-                                    Leather<span>(29)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">Black
-                                    with red<span>(19)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Gold<span>(19)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Spacegrey<span>(19)</span></label></li>
-                        </ul>
-                    </form>
-                </div>
-                <div class="common-filter">
-                    <div class="head">Price</div>
-                    <div class="price-range-area">
-                        <div id="price-range"></div>
-                        <div class="value-wrapper d-flex">
-                            <div class="price">Price:</div>
-                            <span>$</span>
-                            <div id="lower-value"></div>
-                            <div class="to">to</div>
-                            <span>$</span>
-                            <div id="upper-value"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <div class="col-xl-9 col-lg-8 col-md-7">
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center " style="background-color: #ffb900">
-                <form method="POST" action="/category">
-                    <div class="sorting ">
-                        <select name="sort">
+
+                <form method="POST" action="/category" id="sortForm">
+                    <div class="sorting">
+                        <select name="sort" onchange="this.form.submit()">
                             <option value="all">ALL</option>
-                            <option value="oldest">oldest</option>
-                            <option value="newest">newest</option>
+                            <option value="oldest">Oldest</option>
+                            <option value="newest">Newest</option>
                             <option value="price">Price</option>
                         </select>
-                        <button type="submit">Sort</button>
                     </div>
-
-
-
                 </form>
+
                 <div class="sorting mr-auto">
-                    <form method="POST" action="">
-                        <div class="sorting ">
-                            <select name="sort">
 
-                                <?php
 
-                                foreach( $type_name as $types_name) {
-                                    echo "<option value=". $types_name["type_name"] .">". $types_name["type_name"] ."</option>";
-
-                                }
-                                ?>
-
-                            </select>
-                            <button type="submit">Sort</button>
-                        </div>
-                    </form>
                 </div>
                 <div class="pagination">
                     <?php if ($currentPage > 1): ?>
@@ -197,74 +150,66 @@
 
 
 
-            <div class="products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));">
+            <div class="products hover" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));">
                 <?php if (!empty($products)) {
                     foreach ($products as $product) { ?>
                         <div class="single-product m-1 border shadow-lg p-3 bg-white rounded hoveer">
                             <a href="/category/details?product_id=<?php echo $product['id']; ?>">
-                                <img class="img-fluid" src="../../views/public/images/product/<?= $product['front_view'] ?>" loading="lazy">
+                                <img class="img-fluid" src="../views/public/images/product/<?php echo $product['front_view']; ?>" loading="lazy">
                                 <hr>
                                 <div class="product-details">
-                                    <h3><?php echo $product['name']; ?></h3>
+                                    <h3><?php echo htmlspecialchars($product['name']); ?></h3>
                                     <div class="price">
-                                        <p>Price: $<?php echo $product['price']; ?></p>
+                                        <p>Price: $<?php echo htmlspecialchars($product['price']); ?></p>
                                     </div>
                                 </div>
                             </a>
                             <div class="prd-bottom">
                                 <form action="/category/details/addCart" method="POST" style="display:inline;">
-                                <button class="social-info">
-                                    <span class="ti-bag"></span>
-                                    <p class="hover-text">add to bag</p>
-                                </button>
-                                </form>
-                                <!-- Add to Cart Button -->
-                                <form action="/category/details/addCart" method="POST" style="display:inline;">
                                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                    <label for="quantity_<?php echo $product['id']; ?>">Enter Quantity:</label>
-                                    <input type="number" id="quantity_<?php echo $product['id']; ?>" name="quantity" required min="1">
-                                    <button type="submit" class="btn btn-primary">
+                                    <input type="hidden" id="quantity" name="quantity" value="1">
+                                    <button type="submit" class="btn btn-warning w-100 mb-2">
                                         <i class="fa fa-shopping-cart"></i> Add to Cart
                                     </button>
                                 </form>
-                                <!-- Add to Wishlist Button -->
                                 <form action="/category/details/create" method="POST" style="display:inline;">
                                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                    <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+                                    <button id="wishlistButton" type="submit" class="btn btn-primary w-100" onclick="toggleWishlist()">Add to Wishlist</button>
                                 </form>
                             </div>
                         </div>
-                    <?php }} ?>
+                    <?php }
+                } ?>
             </div>
 
 
 
 
             <div class="pagination">
-            <?php if ($currentPage > 1): ?>
-                <a href="?page=<?php echo $currentPage - 1; ?>">Previous</a>
-            <?php endif; ?>
+                <?php if ($currentPage > 1): ?>
+                    <a href="?page=<?php echo $currentPage - 1; ?>">Previous</a>
+                <?php endif; ?>
 
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="?page=<?php echo $i; ?>" <?php echo $i == $currentPage ? 'class="active"' : ''; ?>>
-                    <?php echo $i; ?>
-                </a>
-            <?php endfor; ?>
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <a href="?page=<?php echo $i; ?>" <?php echo $i == $currentPage ? 'class="active"' : ''; ?>>
+                        <?php echo $i; ?>
+                    </a>
+                <?php endfor; ?>
 
-            <?php if ($currentPage < $totalPages): ?>
-                <a href="?page=<?php echo $currentPage + 1; ?>">Next</a>
-            <?php endif; ?>
+                <?php if ($currentPage < $totalPages): ?>
+                    <a href="?page=<?php echo $currentPage + 1; ?>">Next</a>
+                <?php endif; ?>
+            </div>
+
+
         </div>
+        </section>
+        <!-- End Best Seller -->
+        <!-- Start Filter Bar -->
 
 
     </div>
-    </section>
-    <!-- End Best Seller -->
-    <!-- Start Filter Bar -->
-
-
-</div>
-<!-- End Filter Bar -->
+    <!-- End Filter Bar -->
 </div>
 </div>
 </div>
@@ -276,47 +221,52 @@
             <div class="col-lg-6 text-center">
                 <div class="section-title">
                     <h1>Deals of the Week</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.</p>
+                    <p>Here you will find the best deals</p>
                 </div>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-9"> <!-- Changed to col-lg-9 to allow for the advertisement column -->
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="img/r1.jpg" alt=""></a>
-                            <div class="desc">
-
-                                <a href="#" class="title"><?php echo $discounts['id']; ?></a>
-                                <div class="price">
-                                    <h6>$ </h6>
-                                    <h6 class="l-through"></h6>
+                    <?php foreach ($discount as $product): ?>
+                        <div class="col-md-4 mb-4"> <!-- Moved this line to make sure each product is inside the row -->
+                            <a href="/category/details?product_id=<?php echo $product['id']; ?>">
+                                <div class="product-item border p-3 h-100 text-center">
+                                    <img src="../views/public/images/product/<?php echo htmlspecialchars($product['img']); ?>" alt="Product Image" class="img-fluid mb-3" style="height: 200px; width: auto;">
+                                    <h4><?php echo htmlspecialchars($product['name']); ?></h4>
+                                    <p>Original Price: <del>$<?php echo number_format($product['price'], 2); ?></del></p>
+                                    <p>Discounted Price: $<?php echo number_format($product['newprice'], 2); ?></p>
+                                    <p class="text-warning">Discount Valid from: <br> <?php echo htmlspecialchars($product['startdate']); ?> <i class="fa-solid fa-arrow-right"></i> <?php echo htmlspecialchars($product['enddate']); ?></p>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
+                            </a>
+                            <form action="/category/details/addCart" method="POST" style="display:inline;">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                <input type="hidden" id="quantity" name="quantity" value="1">
+                                <button type="submit" class="btn btn-warning w-100 mb-2">
+                                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                                </button>
+                            </form>
+                            <form action="/category/details/create" method="POST" style="display:inline;">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                <button id="wishlistButton" type="submit" class="btn btn-primary w-100" onclick="toggleWishlist()">Add to Wishlist</button>
+                            </form>
+                        </div> <!-- Closing the product item div here -->
+                    <?php endforeach; ?>
                 </div>
             </div>
+
             <div class="col-lg-3">
                 <div class="ctg-right">
                     <a href="#" target="_blank">
-                        <img class="img-fluid d-block mx-auto" src="../views/public/images/category/c5.jpg" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../public/images/discountImg.avif" alt="">
                     </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 <!-- End related-product Area -->
 
 <!-- start footer Area -->
@@ -399,6 +349,20 @@
             setTimeout(() => alert.style.display = 'none', 500); // Wait for fade-out to finish
         }
     }, 2000);
+
+
+    function toggleWishlist() {
+        const button = document.getElementById('wishlistButton');
+        if (button.innerHTML === "Add to Wishlist") {
+            button.innerHTML = "Remove from Wishlist";
+            button.classList.remove('btn-primary');
+            button.classList.add('btn-danger');
+        } else {
+            button.innerHTML = "Add to Wishlist";
+            button.classList.remove('btn-danger');
+            button.classList.add('btn-primary');
+        }
+    }
 </script>
 
 <?php require 'views/partials/footer.php'; ?>

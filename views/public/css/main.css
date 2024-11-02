@@ -6025,6 +6025,7 @@ label {
 /*************************************************************/
 .custom-card-big-shadow {
   max-width: 320px;
+
   position: relative;
 }
 
@@ -6043,6 +6044,7 @@ label {
   margin-bottom: 20px;
   position: relative;
   z-index: 1;
+  height: 400px;
 }
 
 .custom-card[data-background="image"] .custom-title,

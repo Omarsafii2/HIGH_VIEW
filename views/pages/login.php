@@ -59,21 +59,21 @@ $url = $client->createAuthUrl();
         <i class="fas fa-eye toggle-password" onclick="togglePassword()" id="togglePassword"></i>
       </div>
 
-      <div class="options-link">
-        <a href="/forgot" class="link-forgot">Forgot password?</a>
-      </div>
+<!--      <div class="options-link">-->
+<!--        <a href="/forgot" class="link-forgot">Forgot password?</a>-->
+<!--      </div>-->
 
       <button type="submit" class="auth-button">
         Sign In
       </button>
 
-      <div class="social-separator">Or continue with</div>
-
-      <div class="social-options">
-        <button type="button" class="login-with-google-btn" onclick="window.location.href='<?= $url ?>'">
-          Sign in with Google
-        </button>
-      </div>
+<!--      <div class="social-separator">Or continue with</div>-->
+<!---->
+<!--      <div class="social-options">-->
+<!--        <button type="button" class="login-with-google-btn" onclick="window.location.href='-->
+<!--      Sign in with Google-->
+<!--     </button>-->
+<!--     </div>-->
 
       <div class="register-redirect"><br>
         Don't have an account? <a href="/register">Register here</a>

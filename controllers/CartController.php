@@ -3,6 +3,7 @@ require_once 'model/Cart.php';
 require_once 'model/Coupon.php';
 require_once 'model/Product.php';
 
+
 class CartController
 {
     protected $cartModel;
@@ -10,8 +11,17 @@ class CartController
     public function __construct(){
         $this->cartModel = new Cart();
 
+
+            // Start the session if it hasn't been started yet
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            // Set the user ID from the session
+            $this->id = isset($_SESSION['user']) ? $_SESSION['user']['id'] : null; // Ensure you access the correct key for user ID
+//dd($this->id);
     }
-    public $id = 1; // Assume this represents the user ID; modify as needed
+    public $id ; // Assume this represents the user ID; modify as needed
 
     public function showCart()
     {
@@ -71,6 +81,15 @@ class CartController
     public function applyCoupon()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['action']) && $_POST['action'] === 'close_coupon') {
+                // Clear the coupon session variable
+                unset($_SESSION['discount']);
+                unset($_SESSION['coupon_code']); // Optionally clear coupon code if stored
+                $_SESSION['message'] = "Coupon closed successfully.";
+                header("Location: /cart");
+                exit();
+            }
+
             if (isset($_POST['coupon_code'])) {
                 $couponCode = trim($_POST['coupon_code']); // Sanitize input
                 $coupon = new Coupon();
@@ -78,10 +97,9 @@ class CartController
                 // Validate the coupon code
                 $valid = $coupon->couponValid($couponCode);
                 if (!empty($valid)) {
-
                     // Get the discount percentage from the valid coupon
                     $_SESSION['discount'] = $valid['percentage']; // Assuming 'percentage' is the column name
-                    // Redirect or send success message
+                    $_SESSION['coupon_code'] = $couponCode; // Optionally store the coupon code
                     header("Location: /cart"); // Redirect to the cart page after applying the coupon
                     exit();
                 } else {
@@ -90,9 +108,9 @@ class CartController
                     header("Location: /cart"); // Redirect back to the cart page
                     exit();
                 }
-
-            }}}
-
+            }
+        }
+    }
     public function updateCart()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -114,10 +132,10 @@ class CartController
                 $_SESSION['message'] = "Cart updated successfully.";
                 header("Location: /cart"); // Adjust the path as necessary
                 exit();
-            } else {
-                $_SESSION['error'] = "No quantities provided.";
-                header("Location: /cart");
-                exit();
+//            } else {
+//                $_SESSION['error'] = "No quantities provided.";
+//                header("Location: /cart");
+//                exit();
             }
         } else {
             header("Location: /cart");
@@ -171,6 +189,7 @@ class CartController
             exit();
         }
     }
+
 
 
 

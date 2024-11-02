@@ -9,7 +9,22 @@ require 'model/Cancellation_fees.php';
 class UserDashboardController
 {
 
-    public $id=1;
+    public $id;
+
+    public function __construct() {
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+
+        if (isset($_SESSION['user'])) {
+            // Assuming $_SESSION['user'] is an associative array with an 'id' key
+            $this->id = $_SESSION['user']['id']; // Adjust as necessary
+        } else {
+            $this->id = null;
+        }
+    }
 
     public function show()
     {
