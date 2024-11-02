@@ -12,55 +12,65 @@ class UserController
     }
 
     // Show different views
-    public function showLogin()
+    public function showlogin()
     {
         require 'views/pages/login.php';
     }
-
-    public function showRegister()
+    public function showregister()
     {
         require 'views/pages/register.php';
     }
-
-    public function showProfile()
-    {
-        require 'views/pages/profile.php';
-    }
-
-    public function showForgot()
+//    public function showprofile()
+//    {
+//        require 'views/pages/profile.php';
+//    }
+    public function showforgot()
     {
         require 'views/pages/forgot.php';
     }
-
-    public function showReset()
+    public function showreset()
     {
         require 'views/pages/reset.php';
     }
-
-    public function registerUser($data) {
-        // Ensure required fields are present
-        $email = $data['user_email'] ?? '';
-        $password = $data['user_password'] ?? '';
-
-        // Example validation (you may want to add more)
-        if (empty($email) || empty($password)) {
-            echo json_encode(['success' => false, 'message' => 'Email and password are required.']);
-            exit;
-        }
-
-        // Simulate registration logic (e.g., save to the database)
-        $registrationSuccessful = true; // Change this based on your logic
-
-        // Return JSON response
-        if ($registrationSuccessful) {
-            echo json_encode(['success' => true, 'redirect' => '/login']);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Registration failed.']);
-        }
-        exit; // Ensure no further output is sent
+    public function showcontact()
+    {
+        require 'views/pages/contact.php';
     }
+
+    public function registerUser()
+    {
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            // Assuming you have sanitized your input data before this point
+            $firstName = trim($_POST['first_name']);
+            $lastName = trim($_POST['last_name']);
+            $email = trim($_POST['email']);
+            $phone = trim($_POST['phone']);
+            $password = $_POST['password']; // This is the plain password
+
+            // Validate the data...
+
+            // Hash the password before storing it
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+            // Now, save the user to the database, using the hashed password
+            $success = $this->user->createUser($firstName, $lastName, $email, $hashedPassword , $phone);
+
+            if ($success) {
+                echo json_encode(['success' => true, 'redirect' => '/login']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Registration failed.']);
+            }
+        }
+    }
+
+
     public function loginUser()
     {
+        // Check if session is already started
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start(); // Start the session if it hasn't been started yet
+        }
+
         if (isset($_POST['user_email']) && isset($_POST['user_password'])) {
             $email = $_POST['user_email'];
             $password = $_POST['user_password'];
@@ -68,31 +78,30 @@ class UserController
             // Verify if the user exists
             $user = $this->user->getUserByEmail($email);
 
-            if ($user) {
-                // Check if the password is correct
-                if (password_verify($password, $user['password'])) { // Assume passwords are hashed
-                    session_start();
-                    $_SESSION['user'] = $user;
-
-                    // Respond with success
-                    echo json_encode([
-                        'success' => true,
-                        'redirect' => '/profile', // Redirect URL
-                    ]);
-                    exit;
-                } else {
-                    // Incorrect password
-                    echo json_encode([
-                        'success' => false,
-                        'message' => 'Incorrect password.', // Specific message for incorrect password
-                    ]);
-                    exit;
-                }
-            } else {
-                // User does not exist
+            // Debugging output
+            if (!$user) {
                 echo json_encode([
                     'success' => false,
-                    'message' => 'Invalid email address.', // Specific message for invalid email
+                    'message' => 'User not found.',
+                ]);
+                exit();
+            }
+
+            // Check if the password is correct
+            if (password_verify($password, $user['password'])) { // Assume passwords are hashed
+                $_SESSION['user'] = $user; // Store user info in the session
+
+                // Respond with success
+                echo json_encode([
+                    'success' => true,
+                    'redirect' => '/', // Redirect URL
+                ]);
+                exit;
+            } else {
+                // Incorrect password
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Incorrect password.', // Specific message for incorrect password
                 ]);
                 exit;
             }
@@ -103,17 +112,16 @@ class UserController
             'success' => false,
             'message' => 'Please provide both email and password.', // Message for missing data
         ]);
-        exit;
+        exit();
     }
+
+
 
     // Logout user
     public function logoutUser()
     {
-        // Assuming you have a logout function that handles the session destruction
-        session_start();
-        session_destroy();
-        header('Location: /login'); // Redirect after logout
-        exit();
+        $this->user->logoutUser();
+        return 'User logged out';
     }
 
     // Send reset email
@@ -134,7 +142,8 @@ class UserController
         }
 
         // Check if email exists in the database
-        if (!$this->user->emailExists($email)) {
+        $user = new User();
+        if (!$user->emailExists($email)) {
             echo json_encode([
                 'status' => 'error',
                 'message' => 'Email not found in our system.'
@@ -143,7 +152,7 @@ class UserController
         }
 
         // Update the password
-        $isUpdated = $this->user->updatePassword($email, $newPassword);
+        $isUpdated = $user->updatePassword($email, $newPassword);
 
         if ($isUpdated) {
             echo json_encode([

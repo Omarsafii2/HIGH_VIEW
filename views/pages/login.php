@@ -38,7 +38,7 @@ $url = $client->createAuthUrl();
 </head>
 
 <body>
-<a href="/profile" class="home-button">Home</a>
+<a href="/" class="home-button">Home</a>
 
   <div class="auth-container">
     <div class="auth-header">

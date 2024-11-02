@@ -62,7 +62,7 @@
 						<ul class="nav navbar-nav menu_nav ml-auto">
 						<li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
 							
-							<li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
+							<li class="nav-item"><a class="nav-link" href="/category">Shop</a></li>
 					
 							<li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
 							</li>
@@ -71,8 +71,8 @@
 							
 							<li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
 							<li ><a class="nav-link custom-btn2" href="/login"> Login</a></li>
-							<li ><a class="nav-link custom-btn2" href="/signup"> Sign Up</a></li>
-                            <li ><a class="nav-link custom-btn2" href="/user"> User Profile</a></li>
+							<li ><a class="nav-link custom-btn2" href="/register"> Sign Up</a></li>
+<!--                            <li ><a class="nav-link custom-btn2" href="/user"> User Profile</a></li>-->
 							
 						</ul>
 						<ul class="nav navbar-nav navbar-right">

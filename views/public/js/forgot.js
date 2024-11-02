@@ -26,12 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // Update strength bars
     strengthBars[0].classList.toggle("weak", lengthCheck && uppercaseCheck);
     strengthBars[1].classList.toggle(
-      "medium",
-      lengthCheck && uppercaseCheck && (lowercaseCheck || numberCheck)
+        "medium",
+        lengthCheck && uppercaseCheck && (lowercaseCheck || numberCheck)
     );
     strengthBars[2].classList.toggle(
-      "strong",
-      lengthCheck &&
+        "strong",
+        lengthCheck &&
         uppercaseCheck &&
         lowercaseCheck &&
         numberCheck &&
@@ -39,11 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     return (
-      lengthCheck &&
-      uppercaseCheck &&
-      lowercaseCheck &&
-      numberCheck &&
-      specialCharCheck
+        lengthCheck &&
+        uppercaseCheck &&
+        lowercaseCheck &&
+        numberCheck &&
+        specialCharCheck
     );
   }
 
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   confirmPasswordInput.addEventListener("input", function () {
     const passwordsMatch =
-      newPasswordInput.value === confirmPasswordInput.value;
+        newPasswordInput.value === confirmPasswordInput.value;
     confirmPasswordError.style.display = passwordsMatch ? "none" : "block";
     validateForm();
   });
@@ -73,32 +73,32 @@ document.addEventListener("DOMContentLoaded", function () {
     const isValidEmail = emailRegex.test(emailInput.value);
     const isStrongPassword = checkPasswordStrength(newPasswordInput.value);
     const passwordsMatch =
-      newPasswordInput.value === confirmPasswordInput.value;
+        newPasswordInput.value === confirmPasswordInput.value;
 
     resetButton.disabled = !(
-      isValidEmail &&
-      isStrongPassword &&
-      passwordsMatch
+        isValidEmail &&
+        isStrongPassword &&
+        passwordsMatch
     );
   }
 
   // Toggle password visibility
   document
-    .getElementById("toggleNewPassword")
-    .addEventListener("click", function () {
-      const type = newPasswordInput.type === "password" ? "text" : "password";
-      newPasswordInput.type = type;
-      this.querySelector("i").classList.toggle("fa-eye-slash");
-    });
+      .getElementById("toggleNewPassword")
+      .addEventListener("click", function () {
+        const type = newPasswordInput.type === "password" ? "text" : "password";
+        newPasswordInput.type = type;
+        this.querySelector("i").classList.toggle("fa-eye-slash");
+      });
 
   document
-    .getElementById("toggleConfirmPassword")
-    .addEventListener("click", function () {
-      const type =
-        confirmPasswordInput.type === "password" ? "text" : "password";
-      confirmPasswordInput.type = type;
-      this.querySelector("i").classList.toggle("fa-eye-slash");
-    });
+      .getElementById("toggleConfirmPassword")
+      .addEventListener("click", function () {
+        const type =
+            confirmPasswordInput.type === "password" ? "text" : "password";
+        confirmPasswordInput.type = type;
+        this.querySelector("i").classList.toggle("fa-eye-slash");
+      });
 
   // Form submission
   resetForm.addEventListener("submit", function (e) {
@@ -120,44 +120,57 @@ document.addEventListener("DOMContentLoaded", function () {
         Accept: "application/json", // Expect JSON response
       },
     })
-      .then((response) => {
-        // Check if response is OK
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        loadingModal.style.display = "none";
+        .then((response) => {
+          // Check if response is OK
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          loadingModal.style.display = "none";
 
-        if (data.status === "success") {
-          successModal.style.display = "flex";
-        } else {
-          document.getElementById("errorModalMessage").textContent =
-            data.message || "Password reset failed";
-          errorModal.style.display = "flex";
-        }
-      })
-      .catch((error) => {
-        loadingModal.style.display = "none";
-        console.error("Error:", error);
-        document.getElementById("errorModalMessage").textContent =
-          "Network error. Please try again.";
-        errorModal.style.display = "flex";
-      });
+          if (data.status === "success") {
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: 'Your password has been reset successfully.',
+              confirmButtonText: 'OK',
+            }).then(() => {
+              window.location.href = "/login"; // Redirect to login page
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: data.message || 'Password reset failed',
+              confirmButtonText: 'OK',
+            });
+          }
+        })
+        .catch((error) => {
+          loadingModal.style.display = "none";
+          console.error("Error:", error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: 'E-mail Not Exists!',
+            confirmButtonText: 'OK',
+          });
+        });
   });
 
   // Modal close handlers
   document
-    .getElementById("modalCloseSuccess")
-    .addEventListener("click", function () {
-      successModal.style.display = "none";
-      window.location.href = "/login"; // Redirect to login page
-    });
+      .getElementById("modalCloseSuccess")
+      .addEventListener("click", function () {
+        successModal.style.display = "none";
+        window.location.href = "/login"; // Redirect to login page
+      });
 
   document
-    .getElementById("modalCloseError")
-    .addEventListener("click", function () {
-      errorModal.style.display = "none";
-    });
+      .getElementById("modalCloseError")
+      .addEventListener("click", function () {
+        errorModal.style.display = "none";
+      });
 });

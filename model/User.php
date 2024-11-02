@@ -4,8 +4,17 @@ require_once 'Model.php';
 
 class User extends Model {
 
+    private $user;
+
     public function __construct() {
         parent::__construct('users');
+    }
+
+    public function emailExists($email) {
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM `users` WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0; // Returns true if email exists
     }
 
     public function createUserWithGoogle($firstName, $lastName, $email, $googleId) {
@@ -37,8 +46,7 @@ class User extends Model {
         return $stmt->fetch(PDO::FETCH_ASSOC); // Return user data if exists
     }
 
-    public function createUser($firstName, $lastName, $email, $hashedPassword, $phone)
-    {
+    public function createUser($firstName, $lastName, $email, $hashedPassword, $phone) {
         $stmt = $this->pdo->prepare("INSERT INTO `users` (first_name, last_name, email, password, phone) VALUES (:first_name, :last_name, :email, :password, :phone)");
         $stmt->bindParam(':first_name', $firstName);
         $stmt->bindParam(':last_name', $lastName);
@@ -49,6 +57,27 @@ class User extends Model {
         return $stmt->execute();
     }
 
+    public function registerUser($data) {
+        header('Content-Type: application/json');
+
+        if ($this->emailExists($data['email'])) { // Call the method directly
+            echo json_encode(['success' => false, 'message' => 'Email already registered']);
+            exit();
+        }
+
+        if ($this->phoneExists($data['phone'])) {
+            echo json_encode(['success' => false, 'message' => 'Phone number already registered']);
+            exit();
+        }
+
+        if ($this->createUser($data['first_name'], $data['last_name'], $data['email'], $data['password'], $data['phone'])) {
+            echo json_encode(['success' => true, 'redirect' => '/login']);
+            exit();
+        }
+
+        echo json_encode(['success' => false, 'message' => 'Registration failed']);
+        exit();
+    }
 
     public function registerGoogleUser($userData) {
         $stmt = $this->pdo->prepare("
@@ -98,13 +127,6 @@ class User extends Model {
             return $this->resetPassword($email, $newPassword);
         }
         return false; // Return false if email not found
-    }
-
-    public function emailExists($email) {
-        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM `users` WHERE email = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        return $stmt->fetchColumn() > 0; // Returns true if email exists
     }
 
     public function phoneExists($phone) {

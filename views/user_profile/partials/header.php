@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <link rel="shortcut icon" href="../../../views/public/images/done.png">
     <title>User Profile</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -37,7 +38,8 @@
   <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
       <div class="sidebar-brand">
-        <a href="index.php">Profile </a>
+          <a class="navbar-brand logo_h" href="/"><img src="../../views/public/images/done.png" alt="" height="70px" width="75px"></a>
+        <a href="/user/profile">Profile </a>
 
 
         <div id="close-sidebar">
@@ -52,7 +54,7 @@
 
       <div class="sidebar-header">
         <div class="user-pic">
-          <img class="img-responsive img-rounded" src="../../views/public/images/<?php echo  $_SESSION['img']?>" alt="User picture">
+          <img loading="lazy" class="img-responsive img-rounded" src="../../views/public/images/users/<?php echo  $_SESSION['img']?>" alt="User picture" height="70px" width="75px">
         </div>
         <div class="user-info">
           <span class="user-name" style="color:black ; font-size:16px;">
@@ -84,12 +86,7 @@
         <span>Profile Information</span>
       </a>
     </li>
-    <li class="">
-      <a href="/user/privacy">
-        <i class="fa fa-shield-alt"></i>
-        <span>Security & Privacy</span>
-      </a>
-    </li>
+
 
     <li class="header-menu">
       <span>Shopping Information</span>
@@ -123,11 +120,7 @@
       </a>
     </li>
     <li>
-      <a href="/user/help">
-        <i class="fa fa-question-circle"></i>
-        <span>Help/Support</span>
-      </a>
-    </li>
+
 
     <li class="header-menu">
       <span>Settings</span>
@@ -150,9 +143,9 @@
         <div class="container-fluid">
             <h2>Welcome back,<?php echo $_SESSION['firstName'] ;?>! </h2>
             <div class="text-end">
-                <button class="btn btn-outline-warning btn-sm rounded-pill shadow-sm">
+                <a href="/" class="btn btn-outline-warning btn-sm rounded-pill shadow-sm">
                     <i class="bi bi-house-door me-1"></i>Back to Home
-                </button>
+                </a>
             </div>
 
 
@@ -161,8 +154,8 @@
             <hr>
             <div class="row">
                 <div class="form-group col-md-12">
-                    <h3>Your adventure <a href="../../../views/products/category.view.php" style="color:#FFBA01">Gear</a> awaits—let's get you ready for your next journey!</h3>
-                    <h6><a href="../../../views/products/category.view.php" style="color:#FFBA01"> Explore our gear </a>and embark on your next journey with confidence!</h6>
+                    <h3>Your adventure <a href="/" style="color:#FFBA01">Gear</a> awaits—let's get you ready for your next journey!</h3>
+                    <h6><a href="/" style="color:#FFBA01"> Explore our gear </a>and embark on your next journey with confidence!</h6>
                 </div>
 
                 <div class="form-group col-md-12">

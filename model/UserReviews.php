@@ -43,4 +43,55 @@ WHERE
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+
+    public function getProductReviews( $product_id){
+        $sql = "SELECT review,rate FROM user_review WHERE id_product = :product_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getUserName($product_id) {
+        // SQL statement to join user_review and users to get the user name
+        $sql = "
+            SELECT users.first_name , users.last_name , users.img
+            FROM user_review 
+            JOIN users  ON user_review.id_user = users.id
+            WHERE user_review.id_product = :product_id
+        ";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function AVGRate($product_id){
+        $sql = "SELECT AVG(rate) FROM user_review WHERE id_product = :product_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result= $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['AVG(rate)']??0;
+    }
+    public function countReview( $product_id){
+        $sql ='SELECT COUNT(*) AS review_count 
+            FROM user_review 
+            WHERE id_product = :product_id';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result= $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['review_count']??0;
+
+
+
+    }
+
+
+
+
+
+
 }

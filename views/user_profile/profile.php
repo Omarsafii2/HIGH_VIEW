@@ -49,7 +49,7 @@
 
     <div style="display:none;" id="edit" class="custom-card">
         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-            <form method="post" action="/user/edit">
+            <form method="post" action="/user/edit" enctype="multipart/form-data">
                 <div class="card">
                     <div class="card-body">
                         <div class="row gutters">
@@ -76,10 +76,26 @@
                             </div>
                             <div class="col-xl-12">
                                 <div class="form-group">
+                                    <label for="newPassword">New Password (leave blank to keep current password)</label>
+                                    <input type="password" class="form-control" name="newPassword" placeholder="Enter new password">
+                                </div>
+                            </div>
+
+
+                            <div class="col-xl-12">
+                                <div class="form-group">
                                     <label for="phone">Phone</label>
                                     <input type="tel" class="form-control" name="phone" placeholder="Enter phone number" value="<?php echo htmlspecialchars($userP['phone']); ?>">
                                 </div>
                             </div>
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <label for="image">Upload Image (Optional)</label>
+                                    <input type="file" class="form-control" name="image" accept="image/*">
+                                </div>
+                            </div>
+
+
                         </div>
                         <div class="row gutters">
                             <div class="col-xl-12">
