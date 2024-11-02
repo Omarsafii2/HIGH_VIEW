@@ -21,28 +21,30 @@ class Router
         $this->add('POST', $route, $callback);
     }
 
-    public function dispatch($requestedRoute)
+    public function dispatch($requestedRoute, $data = null)
     {
         $method = $_SERVER['REQUEST_METHOD'];
-
-        // Ensure `$requestedRoute` is a string
-        $requestedRoute = (string)$requestedRoute;
+        $requestedRoute = (string)$requestedRoute;  // Ensure `$requestedRoute` is a string
 
         if (isset($this->routes[$method])) {
             foreach ($this->routes[$method] as $route => $callback) {
                 if (preg_match($route, $requestedRoute, $matches)) {
-                  //  echo "Route matched: $route";
-                    array_shift($matches);
+                    array_shift($matches);  // Remove full match, keep only parameters
+
                     if (is_string($callback) && strpos($callback, '@') !== false) {
                         list($controllerName, $methodName) = explode('@', $callback);
                         $controllerFile = 'controllers/' . $controllerName . '.php';
-//var_dump($controllerFile);
-                        if (file_exists($controllerFile)) {
-//                             var_dump(';lkjhgf');
 
+                        if (file_exists($controllerFile)) {
                             require_once $controllerFile;
                             $controller = new $controllerName();
-                            call_user_func_array([$controller, $methodName], $matches);
+
+                            // Pass POST data to the method if it exists
+                            if ($method === 'POST' && $data) {
+                                call_user_func_array([$controller, $methodName], array_merge($matches, [$data]));
+                            } else {
+                                call_user_func_array([$controller, $methodName], $matches);
+                            }
                             return;
                         }
                     } elseif (is_callable($callback)) {

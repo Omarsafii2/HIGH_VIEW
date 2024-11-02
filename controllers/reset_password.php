@@ -11,7 +11,7 @@ header('Expires: 0');
 
 // Database connection parameters
 $host = 'localhost';
-$dbname = 'php_auth';
+$dbname = 'e_commerce';
 $username = 'root';
 $password = '';
 

@@ -10,9 +10,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-image: url('../../../views/public/images/bg.png'); /* Example image URL */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   padding: 0.5rem;
 }
+
 
 .strength-meter {
   height: 5px;
@@ -67,6 +71,7 @@ body {
   gap: 8px;
   margin-top: 0.8rem;
 }
+
 .fa-circle:before {
   content: unset;
   display: inline-block;
@@ -180,10 +185,9 @@ body {
 }
 
 .form-group input:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #ffba00; /* Changed to match new gradient */
+  box-shadow: 0 0 0 3px rgba(255, 186, 0, 0.1); /* Changed to match new gradient */
 }
-
 
 .form-group i {
   position: absolute;
@@ -191,9 +195,11 @@ body {
   top: 2.7rem;
   color: #a0aec0;
 }
+
 .fa-circle:before {
   content: unset;
 }
+
 .form-group .validation-message {
   font-size: 0.85rem;
   color: #dc3545;
@@ -208,7 +214,7 @@ body {
 .register-button {
   width: 100%;
   padding: 0.75rem;
-  background: linear-gradient(to right, #667eea, #764ba2);
+  background: linear-gradient(to right, #ffba00, #ff6c00); /* Updated gradient */
   color: white;
   border: none;
   border-radius: 10px;
@@ -220,7 +226,7 @@ body {
 
 .register-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 5px 15px rgba(255, 186, 0, 0.4); /* Changed to match new gradient */
 }
 
 .login-link {
@@ -230,14 +236,14 @@ body {
 }
 
 .login-link a {
-  color: #667eea;
+  color: #ffba00; /* Changed to match new gradient */
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .login-link a:hover {
-  color: #764ba2;
+  color: #ff6c00; /* Changed to match new gradient */
 }
 
 @media (max-width: 480px) {
@@ -254,8 +260,6 @@ body {
 .register-container {
   padding: 20px;
 }
-
-
 
 .form-group {
   position: relative;
@@ -277,7 +281,7 @@ body {
 }
 
 .toggle-password:hover {
-  color: #667eea;
+  color: #ffba00; /* Changed to match new gradient */
 }
 
 
@@ -299,7 +303,7 @@ body {
   margin-top: 8px;
   width: 100px;
   height: 60px;
-  background: linear-gradient(to right, #667eea, #764ba2);
+  background: linear-gradient(to right, #ffba00, #ff6c00); /* Updated gradient */
   color: white;
   text-align: center;
   line-height: 60px;

@@ -5,17 +5,15 @@ class Category extends Model
     public function  __construct(){
         parent::__construct("category"); ///////////to establish the db connection form the parent
     }
-    public function searchCategories($query) {
-        $query = $this->pdo->real_escape_string($query);
-        $sql = "SELECT `id`, `name` FROM `category` WHERE `name` LIKE '%$query%'";
-        $result = $this->pdo->query($sql);
+    public function getCategoryName($id) {
+        $sql='SELECT category.name 
+        FROM product 
+        JOIN category ON product.category_id = category.id 
+        WHERE product.id = :product_id';
 
-        $categories = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $categories[] = $row; // Collect categories
-            }
-        }
-        return $categories;
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':product_id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC); ;
     }
 }

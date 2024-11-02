@@ -40,10 +40,10 @@ class UserDashboardController
 
 
     public function showPivacyPage(){
-        require 'views/user_profile/securityAndPrivacy.php';
+        require 'views/pages/securityAndPrivacy.php';
     }
     public function showHelpPage(){
-        require 'views/user_profile/helpAndSupport.php';
+        require 'views/pages/helpAndSupport.php';
     }
 
     public function showContactPage(){
@@ -55,15 +55,20 @@ class UserDashboardController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Sanitize and validate input data as needed
             $data = [
-                'first_name' => $_POST['firstName'],
-                'last_name' => $_POST['lastName'],
-                'email' => $_POST['email'],
-                'phone' => $_POST['phone'],
-                'city' => $_POST['city'],
-                'district' => $_POST['district'],
-                'street' => $_POST['street'],
-                'building_num' => $_POST['b_number']
+                'first_name' => htmlspecialchars(trim($_POST['firstName'])),
+                'last_name' => htmlspecialchars(trim($_POST['lastName'])),
+                'email' => filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL),
+                'phone' => htmlspecialchars(trim($_POST['phone'])),
+                'city' => htmlspecialchars(trim($_POST['city'])),
+                'district' => htmlspecialchars(trim($_POST['district'])),
+                'street' => htmlspecialchars(trim($_POST['street'])),
+                'building_num' => htmlspecialchars(trim($_POST['b_number']))
             ];
+
+            // Hash the new password only if it's provided
+            if (!empty(trim($_POST['newPassword']))) {
+                $data['password'] = password_hash(trim($_POST['newPassword']), PASSWORD_DEFAULT);
+            }
 
             // Perform the update
             $user = new User();
@@ -83,6 +88,9 @@ class UserDashboardController
             exit;
         }
     }
+
+
+
 
 
     public function getFaviorte(){

@@ -148,6 +148,7 @@ function validateForm(event) {
     const district = document.querySelector('input[name="district"]').value.trim();
     const street = document.querySelector('input[name="street"]').value.trim();
     const buildingNum = document.querySelector('input[name="b_number"]').value.trim();
+    const imageInput = document.querySelector('input[name="image"]');
 
     let errors = [];
 
@@ -177,6 +178,15 @@ function validateForm(event) {
     const emailDomainRegex = /^(.*?@(?:gmail\.com|outlook\.com|hotmail\.com|yahoo\.com))$/; // List of allowed domains
     if (!emailDomainRegex.test(email)) {
         errors.push("Email must be a valid address from Gmail, Outlook, Hotmail, or Yahoo.");
+    }
+
+    // Check for optional image file
+    if (imageInput.files.length > 0) {
+        const file = imageInput.files[0];
+        const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!validImageTypes.includes(file.type)) {
+            errors.push("Image must be a JPEG, PNG, or GIF.");
+        }
     }
 
     // If there are errors, display them; otherwise, submit the form

@@ -1,18 +1,15 @@
 <?php
-require  'vendor/autoload.php';
+require 'vendor/autoload.php';
 require 'functions.php';
 require 'app/Router.php';
 session_start();
 
-
-$dotenv=Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $router = new Router();
-$router->get('/', 'UserDashboardController@index');
-$router->get('/products', 'ProductController@show');
-$router->get('/blog', 'ArticleController@show');
-$router->get('/blog/{id}', 'ArticleController@showSingle');
+
+// User dashboard routes
 $router->get('/user', 'UserDashboardController@show');
 $router->get('/user/profile', 'UserDashboardController@showUser');
 $router->get('/user/privacy', 'UserDashboardController@showPivacyPage');
@@ -23,17 +20,8 @@ $router->get('/user/contact', 'UserDashboardController@showContact');
 $router->get('/user/order', 'UserDashboardController@showOrderHistory');
 $router->get('/user/order/cancel/{id}/{status}', 'UserDashboardController@cancelOrder');
 $router->post('/user/edit', 'UserDashboardController@edit');
-$router->get('/about', 'AboutUsController@aboutUs');
-$router->get('/search', 'SearchController@handleSearch');
-$router->get('/cart', 'CartController@showCart');
-$router->post('/cart/delete/{id}', 'CartController@deleteFromCart');
-$router->post('/cart/coupon', 'CartController@applyCoupon');
-$router->post('/cart/update', 'CartController@updateCart');
 
-
-
-
-////////////////////////////////////////////
+// User registration routes
 $router->get('/login', "UserController@showlogin");
 $router->get('/register', "UserController@showregister");
 $router->get('/reset', "UserController@showreset");
@@ -41,21 +29,45 @@ $router->get('/forgot', "UserController@showforgot");
 $router->post('/register', "UserController@registerUser");
 $router->post('/login', "UserController@loginUser");
 $router->get('/logout', "UserController@logoutUser");
-$router->get('/profile', "UserController@showprofile");
-$router->get('/forgot', "UserController@showforgot");
 
-///////////////////////////////////////////////
+// Additional pages
 $router->get('/contact', "ContactController@showContact");
+$router->get('/terms', "PagesController@showterms");
+$router->get('/delivery', "PagesController@delivery");
+$router->get('/blog', 'ArticleController@show');
+$router->get('/blog/{id}', 'ArticleController@showSingle');
+$router->get('/about', 'PagesController@aboutUs');
 
+// Home page routes
+$router->get('/', 'ProductController@index');
+$router->get('/products', 'ProductController@show');
+$router->get('/category/home', 'ProductController@showCategory');
+$router->get('/discount', 'ProductController@showDiscount');
+$router->get('/product', 'ProductController@showProduct');
+$router->get('/best-seller', 'ProductController@showBestSeller');
+$router->get('/packages', 'ProductController@showPackage');
+$router->get('/latest-products', 'ProductController@showLatestProducts');
+$router->get('/search', 'SearchController@handleSearch');
 
+// Order checkout routes
+$router->get('/confirmation', 'ConfirmationController@index');
+$router->get('/cart', 'CartController@showCart');
+$router->post('/cart/delete/{id}', 'CartController@deleteFromCart');
+$router->post('/cart/coupon', 'CartController@applyCoupon');
+$router->post('/cart/update', 'CartController@updateCart');
 
+// Shop routes
+$router->get('/category', 'ProductController@show');
+$router->post('/category', 'ProductController@filter');
+$router->post('/category/filter', 'ProductController@categoryFilter');
+$router->get('/category/details', 'ProductController@showDetails');
+$router->post('/category/details/create', 'FavoriteController@store');
+$router->post('/category/details/addCart', 'CartController@store');
 
-
-
-// Dispatch the current request URI
-// Dispatch the request
+// Dispatch the current request URI with optional POST data
 $requestedRoute = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-//dd($requestedRoute);
-// Dispatch the route
-$router->dispatch($requestedRoute);
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $router->dispatch($requestedRoute, $_POST);
+} else {
+    $router->dispatch($requestedRoute);
+}
