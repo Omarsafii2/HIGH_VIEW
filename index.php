@@ -41,9 +41,8 @@ $router->get('/forgot', "UserController@showforgot");
 $router->post('/register', "UserController@registerUser");
 $router->post('/login', "UserController@loginUser");
 $router->get('/logout', "UserController@logoutUser");
-$router->get('/profile', "UserController@showprofile");
+$router->get('/blog', "UserController@showblog");
 $router->get('/forgot', "UserController@showforgot");
-
 ///////////////////////////////////////////////
 $router->get('/contact', "ContactController@showContact");
 

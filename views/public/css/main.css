@@ -5845,7 +5845,7 @@ label {
   text-align: center;
   line-height: 0; /* Vertically center the text/icon */
   color: #fff; /* Icon/text color */
- padding: 10px;
+ padding: 15px;
   transition: all 0.3s ease; /* Smooth hover transition */
 }
 
@@ -5855,6 +5855,7 @@ label {
   background-color: #ff8c00; /* Change background on hover */
   box-shadow: 0 12px 25px rgba(255, 108, 0, 0.4); /* Intensify shadow on hover */
   transform: scale(1.05); /* Slight grow effect on hover */
+  border-radius: 20px;
 }
 
 

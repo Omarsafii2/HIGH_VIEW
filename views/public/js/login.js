@@ -41,7 +41,7 @@ loginForm.addEventListener("submit", async function (e) {
 
       // Redirect after showing the SweetAlert
       setTimeout(() => {
-        window.location.href = data.redirect || "/profile";
+        window.location.href = data.redirect || "/blog";
       }, 2500);
     } else {
       // Error popup for invalid credentials
@@ -73,7 +73,7 @@ function googleLogin() {
   gapi.load("auth2", function () {
     gapi.auth2
       .init({
-        client_id: "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
+        client_id: "1006063154544-9rhbc2igqm7jjhnge5abt0nmrlnoreu1.apps.googleusercontent.com",
       })
       .then(function (auth2) {
         auth2.signIn().then(onGoogleSignIn);

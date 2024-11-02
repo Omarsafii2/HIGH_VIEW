@@ -131,19 +131,32 @@ document.addEventListener("DOMContentLoaded", function () {
         loadingModal.style.display = "none";
 
         if (data.status === "success") {
-          successModal.style.display = "flex";
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Your password has been reset successfully.',
+            confirmButtonText: 'OK',
+          }).then(() => {
+            window.location.href = "/login"; // Redirect to login page
+          });
         } else {
-          document.getElementById("errorModalMessage").textContent =
-            data.message || "Password reset failed";
-          errorModal.style.display = "flex";
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: data.message || 'Password reset failed',
+            confirmButtonText: 'OK',
+          });
         }
       })
       .catch((error) => {
         loadingModal.style.display = "none";
         console.error("Error:", error);
-        document.getElementById("errorModalMessage").textContent =
-          "Network error. Please try again.";
-        errorModal.style.display = "flex";
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'E-mail Not Exists!',
+          confirmButtonText: 'OK',
+        });
       });
   });
 

@@ -28,7 +28,7 @@ $url = $client->createAuthUrl();
 
   <!-- Google API -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
+  <meta name="google-signin-client_id" content="1006063154544-9rhbc2igqm7jjhnge5abt0nmrlnoreu1.apps.googleusercontent.com">
 
   <!-- SweetAlert2 CSS and JS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -38,7 +38,7 @@ $url = $client->createAuthUrl();
 </head>
 
 <body>
-<a href="/profile" class="home-button">Home</a>
+<a href="/blog" class="home-button">Home</a>
 
   <div class="auth-container">
     <div class="auth-header">

@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <a href="/profile" class="home-button">Home</a>
+    <a href="/blog" class="home-button">Home</a>
 
     <div class="register-container">
         <div class="register-header">

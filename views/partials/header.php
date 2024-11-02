@@ -70,8 +70,7 @@
 							
 							
 							<li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
-							<li ><a class="nav-link custom-btn2" href="/login"> Login</a></li>
-							<li ><a class="nav-link custom-btn2" href="/signup"> Sign Up</a></li>
+							<li ><a class="nav-link custom-btn2" href="/login"> Login/Sign Up</a></li>
                             <li ><a class="nav-link custom-btn2" href="/user"> User Profile</a></li>
 							
 						</ul>

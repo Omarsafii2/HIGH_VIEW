@@ -27,7 +27,7 @@ inputs.forEach((input) => {
 // Individual Field Validation Function
 function validateField(field) {
   const validationMessage = field.parentElement.querySelector(
-      ".validation-message"
+    ".validation-message"
   );
   let isValid = true;
 
@@ -178,7 +178,7 @@ form.addEventListener("submit", async function (e) {
   if (!firstName || !lastName || !email || !phone) {
     swal({
       title: "Missing Information",
-      text: "Please fill in all fields.",
+      text: "Please fill in all field.",
       icon: "warning",
       button: "OK",
     });
@@ -211,49 +211,42 @@ form.addEventListener("submit", async function (e) {
   }
 
   const formData = new FormData(this);
+  const submitButton = this.querySelector("button[type='submit']");
   submitButton.disabled = true;
 
-  // Call the registerUser function with formData
-  await registerUser(formData);
-
-  // Reset the submit button after the request is complete
-  submitButton.disabled = false;
-});
-
-// Register User Function
-async function registerUser(formData) {
   try {
     const response = await fetch("/register", {
       method: "POST",
       body: formData,
     });
 
-    // Check if the response is ok (status code 200-299)
-    if (!response.ok) {
-      const errorText = await response.text(); // Get response as text
-      console.error('Server error:', errorText); // Log the error text
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-    const textResponse = await response.text(); // Get the response as text
-    console.log('Raw response:', textResponse); // Log the response to see what you are getting
+    const data = await response.json();
 
-    // Parse the JSON response
-    const data = JSON.parse(textResponse);
-
-    // Handle the data accordingly
     if (data.success) {
-      // Redirect or show success message
-      window.location.href = data.redirect; // Redirect to the login page
+      swal({
+        title: "Registration Successful!",
+        text: "Redirecting to the login page.",
+        icon: "success",
+        button: "OK",
+        timer: 2000,
+      });
+      setTimeout(() => (window.location.href = data.redirect), 2500);
     } else {
-      // Show error message
-      alert(data.message);
+      swal("Error", data.message || "Registration failed", "error");
+      submitButton.disabled = false;
     }
   } catch (error) {
-    console.error('Error during registration:', error.message);
-    alert('An error occurred during registration. Please try again.'); // Show a user-friendly error message
+    console.error("Fetch Error:", error);
+    swal(
+      "Error",
+      "An unexpected error occurred. Please try again later.",
+      "error"
+    );
+    submitButton.disabled = false;
   }
-}
+});
 
 // Login Form Elements
 // Login Form Elements
@@ -269,67 +262,47 @@ function setupPasswordToggle() {
     // Create toggle button but hide it initially
     const toggleButton = document.createElement("span");
     toggleButton.className = "toggle-password";
-    toggleButton.innerHTML = '<i class="fa fa-eye"></i>'; // Eye icon
-    toggleButton.style.cursor = "pointer";
-    toggleButton.style.marginLeft = "5px";
-    field.parentNode.insertBefore(toggleButton, field.nextSibling);
+    toggleButton.style.display = "none"; // Hide toggle button initially
+    toggleButton.innerHTML = '<i class="far fa-eye"></i>';
 
-    // Toggle password visibility on click
+    field.parentElement.appendChild(toggleButton);
+    field.style.paddingRight = "40px";
+
+    // Show toggle button on input
+    field.addEventListener("input", function () {
+      toggleButton.style.display = field.value ? "inline" : "none";
+    });
+
     toggleButton.addEventListener("click", function () {
       const isPasswordVisible = field.type === "text";
       field.type = isPasswordVisible ? "password" : "text";
-      toggleButton.innerHTML = isPasswordVisible
-          ? '<i class="fa fa-eye"></i>' // Show eye icon
-          : '<i class="fa fa-eye-slash"></i>'; // Hide eye icon
+      this.innerHTML = `<i class="far fa-eye${
+        isPasswordVisible ? "" : "-slash"
+      }"></i>`;
+
+      const icon = this.querySelector("i");
+      icon.classList.add("fa-flip");
+      setTimeout(() => icon.classList.remove("fa-flip"), 200);
     });
   });
 }
 
-// Call the setupPasswordToggle function
 setupPasswordToggle();
 
-// Login Form Submit
-loginForm.addEventListener("submit", async function (e) {
-  e.preventDefault(); // Prevent form submission
+// Function to show loading animation on the button
+function showLoadingAnimation(button) {
+  button.disabled = true;
 
-  const email = emailField.value.trim();
-  const password = passwordField.value.trim();
+  // Add loading text and spinner icon
+  button.innerHTML = `
+    <span class="button-text">Registering...</span>
+    <i class="fas fa-spinner fa-spin" style="margin-left: 10px;"></i>
+  `;
+}
 
-  // Check if email and password fields are filled
-  if (!email || !password) {
-    alert("Please fill in both email and password fields.");
-    return;
-  }
+// Function to hide loading animation and restore original button text
+function hideLoadingAnimation(button) {
+  button.disabled = false;
+  button.innerHTML = "Register"; 
+}
 
-  // Prepare data for submission
-  const loginData = new FormData();
-  loginData.append("user_email", email);
-  loginData.append("user_password", password);
-
-  try {
-    const response = await fetch("/login", {
-      method: "POST",
-      body: loginData,
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text(); // Get response as text
-      console.error('Server error:', errorText); // Log the error text
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const textResponse = await response.text(); // Get the response as text
-    console.log('Raw response:', textResponse); // Log the response to see what you are getting
-
-    const data = JSON.parse(textResponse); // Parse the JSON response
-
-    if (data.success) {
-      window.location.href = data.redirect; // Redirect on success
-    } else {
-      alert(data.message); // Show error message
-    }
-  } catch (error) {
-    console.error('Error during login:', error.message);
-    alert('An error occurred during login. Please try again.'); // Show a user-friendly error message
-  }
-});
