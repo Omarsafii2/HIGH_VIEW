@@ -30,6 +30,9 @@ $router->post('/cart/delete/{id}', 'CartController@deleteFromCart');
 $router->post('/cart/coupon', 'CartController@applyCoupon');
 $router->post('/cart/update', 'CartController@updateCart');
 
+$router->get('/contact', 'ContactController@showContact');
+
+$router->post('/contact/submitMessage', 'ContactController@submitMessage');
 
 
 

@@ -31,7 +31,17 @@ class Model
             die('Connection failed: ' . $e->getMessage());
         }
     }
+    //saveContact
+    public function saveContact($name, $email, $subject, $message)
+    {
+        $sql = "INSERT INTO contact (user_id, message) VALUES (:user_id, :message)";
 
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':message', $message, PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
     // Register a new user with a hashed password
     public function registerUser($data)
     {

@@ -55,7 +55,7 @@ if (isset($_GET['status'])) {
 				</div>
 			</div>
 			<div class="col-lg-9">
-				<form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+				<form class="row contact_form" action="/contact/submitMessage" method="post" id="contactForm" novalidate="novalidate">
 					<div class="col-md-6">
 						<div class="form-group">
 							<input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'">
