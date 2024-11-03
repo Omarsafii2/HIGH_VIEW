@@ -40,7 +40,7 @@
 <body>
 
 	<!-- Start Header Area -->
-	<header class="header_area sticky-header">
+	<header class="header_area  bg-white sticky-header">
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
@@ -57,7 +57,7 @@
 						<ul class="nav navbar-nav menu_nav ml-auto">
 						<li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
 							
-							<li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
+							<li class="nav-item"><a class="nav-link" href="/category">Shop</a></li>
 					
 							<li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
 							</li>
