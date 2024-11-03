@@ -105,6 +105,7 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="../../views/public/js/gmaps.min.js"></script>
 	<script src="../../views/public/js/main.js"></script>
+    <script src="../../views/public/js/clockDiscount.js"></script>
     <script src="../../views/public/js/404.js"></script>
 
 </body>
