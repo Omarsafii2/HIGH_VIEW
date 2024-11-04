@@ -3,7 +3,7 @@
 <hr>
 
 <div class="row">
-    <?php foreach ($faviortes as $favorite): ?>
+    <?php foreach ($favorites as $favorite): ?>
         <div class="col-lg-4 col-md-6">
             <div class="single-product">
                 <img class="img-fluid" src="../../views/public/images/product/<?php echo $favorite['front_view']; ?>" alt="">

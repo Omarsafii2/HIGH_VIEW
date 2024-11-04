@@ -32,4 +32,18 @@ class Contact extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function saveContact($name, $email, $subject, $message) {
+        // Prepare the SQL statement
+        $stmt = $this->pdo->prepare("INSERT INTO contact (name, email, subject, message, created_at) VALUES (:name, :email, :subject, :message, NOW())");
+
+        // Bind parameters
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':subject', $subject);
+        $stmt->bindParam(':message', $message);
+
+        // Execute the statement and return true if successful, false otherwise
+        return $stmt->execute();
+    }
+
 }

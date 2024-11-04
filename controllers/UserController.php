@@ -90,6 +90,7 @@ class UserController
             // Check if the password is correct
             if (password_verify($password, $user['password'])) { // Assume passwords are hashed
                 $_SESSION['user'] = $user; // Store user info in the session
+                $isLoggedIn = isset($_SESSION['user']);
 
                 // Respond with success
                 echo json_encode([
@@ -119,9 +120,20 @@ class UserController
 
     // Logout user
     public function logoutUser()
+
     {
-        $this->user->logoutUser();
-        return 'User logged out';
+        // Check if session is already started
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start(); // Start the session if it hasn't been started yet
+        }
+
+        // Destroy the session to log the user out
+        session_destroy();
+
+        // Redirect to the homepage
+        header("Location: /");
+        exit; // Ensure no further output is sent
+
     }
 
     // Send reset email

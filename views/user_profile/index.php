@@ -18,15 +18,17 @@
 
                       </div>
                       <div class="prd-bottom">
-
-                          <a href="" class="social-info">
-                              <span class="ti-bag"></span>
-                              <p class="hover-text">add to bag</p>
-                          </a>
-                          <a href="" class="social-info">
-                              <span class="lnr lnr-heart"></span>
-                              <p class="hover-text">Wishlist</p>
-                          </a>
+                          <form action="/category/details/addCart" method="POST" style="display:inline;">
+                              <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                              <input type="hidden" id="quantity" name="quantity" value="1">
+                              <button type="submit" class="btn btn-warning w-100 mb-2">
+                                  <i class="fa fa-shopping-cart"></i> Add to Cart
+                              </button>
+                          </form>
+                          <form action="/category/details/create" method="POST" style="display:inline;">
+                              <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                              <button id="wishlistButton" type="submit" class="btn btn-primary w-100" onclick="toggleWishlist()">Add to Wishlist</button>
+                          </form>
                       </div>
                   </div>
               </div>

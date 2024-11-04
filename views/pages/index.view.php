@@ -15,7 +15,7 @@
                                 <h1>Gear Up for Adventure!</h1>
                                 <p>Prepare for Your Next Journey with Top Outdoor Gear and Essentials!</p>
                                 <div class="add-bag d-flex align-items-center">
-                                    <a class="primary-btn" href="category.php"><span class="lnr-txt">Explore Now</span></a>
+                                    <a class="primary-btn" href="/category"><span class="lnr-txt">Explore Now</span></a>
                                     <span class="add-text text-uppercase"></span>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                 <h1>Explore the <br> Latest Adventure Gear!</h1>
                                 <p>Equip Yourself for the Wild: Discover the Best in Outdoor Gear!</p>
                                 <div class="add-bag d-flex align-items-center">
-                                    <a class="primary-btn" href="/shop-now">Shop Now</a>
+                                    <a class="primary-btn" href="/category">Shop Now</a>
                                 </div>
                             </div>
                         </div>
@@ -115,33 +115,9 @@
             </div>
         <?php endif; ?>
 
-        <?php if (!empty($package)): ?>
-            <div class="col-md-4 col-sm-6 custom-content-card">
-                <div class="custom-card-big-shadow">
-                    <div class="custom-card custom-card-just-text" data-background="color" data-color="green" data-radius="none">
-                        <div class="custom-content">
-                            <h6 class="custom-category">Package</h6>
-                            <h4 class="custom-title"><a href="#"><?php echo $package[0]['name']; ?></a></h4>
-                            <img loading="lazy" src="/views/public/images/product/<?php echo $package[0]['front_view']; ?>" alt="<?php echo $package[0]['name']; ?>" class="img-fluid">
-                        </div>
-                    </div> <!-- end custom-card -->
-                </div>
-            </div>
-        <?php endif; ?>
 
-        <?php if (!empty($category)): ?>
-            <div class="col-md-4 col-sm-6 custom-content-card">
-                <div class="custom-card-big-shadow">
-                    <div class="custom-card custom-card-just-text" data-background="color" data-color="yellow" data-radius="none">
-                        <div class="custom-content">
-                            <h6 class="custom-category">Category</h6>
-                            <h4 class="custom-title"><a href="#"><?php echo $category[0]['name']; ?></a></h4>
-                            <img loading="lazy" src="/views/public/images/product/<?php echo $category[0]['img']; ?>" alt="<?php echo $category[0]['name']; ?>" class="img-fluid">
-                        </div>
-                    </div> <!-- end custom-card -->
-                </div>
-            </div>
-        <?php endif; ?>
+
+
 
         <?php if (!empty($discount)): ?>
             <div class="col-md-4 col-sm-6 custom-content-card">
@@ -149,7 +125,7 @@
                     <div class="custom-card custom-card-just-text" data-background="color" data-color="brown" data-radius="none">
                         <div class="custom-content">
                             <h6 class="custom-category">Discount</h6>
-                            <h4 class="custom-title"><a href="#"><?php echo $discount[0]['name']; ?></a></h4>
+
                             <img loading="lazy" src="/views/public/images/product/<?php echo $discount[0]['front_view']; ?>" alt="<?php echo $discount[0]['name']; ?>" class="img-fluid">
                         </div>
                     </div> <!-- end custom-card -->
@@ -162,17 +138,17 @@
                 <div class="custom-card-big-shadow">
                     <div class="custom-card custom-card-just-text" data-background="color" data-color="purple" data-radius="none">
                         <div class="custom-content">
-                            <h6 class="custom-category">Latest Product</h6>
+                            <h6 class="custom-category">New Arrival</h6>
                             <h4 class="custom-title"><a href="#"><?php echo $latestProduct[0]['name']; ?></a></h4>
                             <img loading="lazy" src="/views/public/images/product/<?php echo $latestProduct[0]['front_view']; ?>" alt="<?php echo $latestProduct[0]['name']; ?>" class="img-fluid">
                         </div>
                     </div> <!-- end custom-card -->
                 </div>
             </div>
-        <?php endif; ?>
+<?php endif;?>
+
     </div>
 </div>
-
 
 
 
@@ -189,8 +165,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 text-center">
                     <div class="section-title">
-                        <h1>Latest Products</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+                        <h1>New Arrivals</h1>
+                        <p>Discover the latest products added to our collection! Shop now to find the newest styles and trends.</p>
                     </div>
                 </div>
             </div>
@@ -199,6 +175,7 @@
                     <?php foreach ($latestProducts as $product): ?>
                         <div class="col-lg-3 col-md-6">
                             <div class="single-product">
+                                <a href="/category/details?product_id=<?php echo $product['id']; ?>">
                                 <img  loading="lazy"class="img-fluid" src="../../../views/public/images/product/<?= htmlspecialchars($product['front_view']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
                                 <div class="product-details">
                                     <h6><?= htmlspecialchars($product['name']) ?></h6>
@@ -208,15 +185,19 @@
                                             <h6 class="l-through">$<?= number_format($product['price'], 2) ?></h6>
                                         <?php endif; ?>
                                     </div>
+                                </a>
                                     <div class="prd-bottom">
-                                        <a href="/category/details/addCart" class="social-info">
-                                            <span class="ti-bag"></span>
-                                            <p class="hover-text">add to bag</p>
-                                        </a>
-                                        <a href="/category/details?product_id=<?php echo $product['id'];?>" class="social-info">
-                                            <span class="lnr lnr-move"></span>
-                                            <p class="hover-text">view more</p>
-                                        </a>
+                                        <form action="/category/details/addCart" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <input type="hidden" id="quantity" name="quantity" value="1">
+                                            <button type="submit" class="btn btn-warning w-100 mb-2">
+                                                <i class="fa fa-shopping-cart"></i> Add to Cart
+                                            </button>
+                                        </form>
+                                        <form action="/category/details/create" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <button id="wishlistButton" type="submit" class="btn btn-primary w-100" onclick="toggleWishlist()">Add to Wishlist</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -235,8 +216,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 text-center">
                     <div class="section-title">
-                        <h1>Best Seller Products</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+                        <h1>Featured Products</h1>
+                        <p>Explore our most popular items! These top-rated products are loved by our customers and are sure to impress.</p>
                     </div>
                 </div>
             </div>
@@ -245,24 +226,31 @@
                     <?php foreach ($bestSellerProducts as $product): ?>
                         <div class="col-lg-3 col-md-6">
                             <div class="single-product">
+                                <a href="/category/details?product_id=<?php echo $product['id']; ?>">
                                 <img loading="lazy" class="img-fluid" src="../../views/public/images/product/<?= htmlspecialchars($product['front_view']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
                                 <div class="product-details">
+
                                     <h6><?= htmlspecialchars($product['name']) ?></h6>
                                     <div class="price">
+
                                         <h6>$<?= number_format($product['newprice'], 2) ?></h6>
                                         <?php if (isset($product['newprice']) && $product['newprice'] < $product['price']): ?>
                                             <h6 class="l-through">$<?= number_format($product['price'], 2) ?></h6>
                                         <?php endif; ?>
                                     </div>
+                                </a>
                                     <div class="prd-bottom">
-                                        <a href="your-link-here" class="social-info">
-                                            <span class="ti-bag"></span>
-                                            <p class="hover-text">add to bag</p>
-                                        </a>
-                                        <a href="your-link-here" class="social-info">
-                                            <span class="lnr lnr-move"></span>
-                                            <p class="hover-text">view more</p>
-                                        </a>
+                                        <form action="/category/details/addCart" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <input type="hidden" id="quantity" name="quantity" value="1">
+                                            <button type="submit" class="btn btn-warning w-100 mb-2">
+                                                <i class="fa fa-shopping-cart"></i> Add to Cart
+                                            </button>
+                                        </form>
+                                        <form action="/category/details/create" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <button id="wishlistButton" type="submit" class="btn btn-primary w-100" onclick="toggleWishlist()">Add to Wishlist</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -290,7 +278,7 @@
                             <p>Get these deals before they're gone!</p>
                         </div>
                         <div class="col-lg-12">
-                            <div class="row clock-wrap">
+                            <div class="row clock-wrap" id="clockdiv-global" data-expiry-date="<?= htmlspecialchars($expiryDates[0]['expiry_date']) ?>">
                                 <div class="col clockinner1 clockinner">
                                     <h1 class="days"></h1>
                                     <span class="smalltext">Days</span>
@@ -309,6 +297,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <a href="/category" class="primary-btn">Shop Now</a>
                 <?php else: ?>
@@ -322,6 +311,7 @@
                     <?php if (!empty($products)): ?>
                         <?php foreach ($products as $product): ?>
                             <div class="single-exclusive-slider">
+                                <a href="/category/details?product_id=<?php echo $product['id']; ?>">
                                 <img  loading="lazy" class="img-fluid" src="../../views/public/images/product/<?= htmlspecialchars($product['image']) ?>" >
                                 <div class="product-details">
                                     <h6><?= $product['name'] ?></h6>
@@ -329,10 +319,19 @@
                                         <h6>$<?= number_format($product['new_price'], 2) ?></h6>
                                         <h6 class="l-through">$<?= number_format($product['price'], 2) ?></h6>
                                     </div>
-
-                                    <div class="add-bag d-flex align-items-center justify-content-center">
-                                        <a class="add-btn" href="/category/details/addCart"><span class="ti-bag"></span></a>
-                                        <span class="add-text text-uppercase">Add to Bag</span>
+                                </a>
+                                    <div class="prd-bottom">
+                                        <form action="/category/details/addCart" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <input type="hidden" id="quantity" name="quantity" value="1">
+                                            <button type="submit" class="btn btn-warning w-100 mb-2">
+                                                <i class="fa fa-shopping-cart"></i> Add to Cart
+                                            </button>
+                                        </form>
+                                        <form action="/category/details/create" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <button id="wishlistButton" type="submit" class="btn btn-primary w-100" onclick="toggleWishlist()">Add to Wishlist</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

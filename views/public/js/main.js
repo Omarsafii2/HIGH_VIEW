@@ -588,3 +588,66 @@ document.querySelectorAll('.btn-outline-danger').forEach(button => {
         });
     });
 });
+///////////////////////////////////////////////////////////////////
+// Function to retrieve cart items from local storage
+function getCartItems() {
+    const items = JSON.parse(localStorage.getItem('cartItems')) || []; // Retrieve and parse cart items
+    console.log('Cart Items:', items); // Log the retrieved items for debugging
+    return items; // Return the cart items
+}
+
+// Function to confirm the order
+function confirmOrder() {
+    const cartItems = getCartItems(); // Retrieve cart items
+    console.log('Cart Items for Confirmation:', cartItems); // Log items for debugging
+
+    // Check if the cart is empty
+    if (cartItems.length === 0) {
+        alert('Your cart is empty!'); // Alert if empty
+        return; // Exit if empty
+    }
+
+    // Create an object to hold the order data
+    const orderData = {
+        items: cartItems,
+        userId: getUserId(), // Implement this function to get the current user's ID
+        // Add other necessary order details as needed
+    };
+
+    // Make an AJAX request to your server to save the order
+    fetch('/saveOrder', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData), // Convert order data to JSON string
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Handle success, e.g., show a success message and redirect
+                alert('Order confirmed successfully!');
+                window.location.href = '/confirmation'; // Redirect to confirmation page
+            } else {
+                // Handle errors, e.g., show an error message
+                alert('Error confirming order: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was an error processing your request.');
+        });
+}
+
+// Example function to get user ID (implement this based on your application logic)
+function getUserId() {
+    // Assuming user ID is stored in session storage or as part of a user object
+    return JSON.parse(sessionStorage.getItem('user')).id; // Adjust as necessary
+}
+
+// Example function to add an item to the cart (if you need it)
+function addToCart(item) {
+    let cartItems = getCartItems(); // Get current items
+    cartItems.push(item); // Add the new item
+    localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Save updated cart items
+}

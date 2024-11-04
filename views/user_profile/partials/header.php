@@ -3,6 +3,45 @@
 <html lang="en">
 
 <head>
+    <?php
+    $isLoggedIn = isset($_SESSION['user']);
+    ?>
+    <script>
+        const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
+    </script>
+    <script>
+        const isLoggedIn = <?php echo json_encode($isLoggedIn); ?>;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginButton = document.getElementById("login-button");
+            const signupButton = document.getElementById("signup-button");
+            const logoutButton = document.getElementById("logout-button");
+
+            if (isLoggedIn) {
+                loginButton.style.display = "none";
+                signupButton.style.display = "none";
+                logoutButton.style.display = "block";
+            } else {
+                loginButton.style.display = "block";
+                signupButton.style.display = "block";
+                logoutButton.style.display = "none";
+            }
+        });
+
+        // Handle logout
+        logoutButton.addEventListener("click", async function () {
+            try {
+                const response = await fetch('/logout', { method: 'POST' });
+                if (response.ok) {
+                    window.location.reload(); // Refresh the page
+                } else {
+                    console.error("Logout failed");
+                }
+            } catch (error) {
+                console.error("Error during logout:", error);
+            }
+        });
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -126,7 +165,7 @@
       <span>Settings</span>
     </li>
     <li>
-      <a href="#">
+      <a href="/logout">
         <i class="fa fa-sign-out-alt"></i>
         <span>Log Out</span>
       </a>

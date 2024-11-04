@@ -199,6 +199,18 @@ class Product extends Model
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getProductsByTypeId($typeId)
+    {
+        $sql='SELECT name,price FROM product WHERE type_id = :typeId';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':typeId', $typeId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
 
     public function getPaginatedProducts($limit, $offset) {
         $sql = "SELECT * FROM product LIMIT :limit OFFSET :offset";
@@ -218,8 +230,45 @@ class Product extends Model
     }
 
 
+    public function getDiscountedProducts()
+    {
+        $sql = 'SELECT product.id,product.name, product.price, product_images.front_view AS img, discount.newprice, discount.startdate, discount.enddate
+                FROM product 
+                INNER JOIN discount ON product.id = discount.id_product
+                LEFT JOIN product_images ON product.id = product_images.product_id
+                WHERE discount.startdate <= NOW() AND discount.enddate >= NOW() LIMIT 3';
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function getImageByProductId($productId)
+    {
+        $sql='SELECT front_view FROM product_images WHERE product_id = :product_id';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':product_id', $productId);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function searchProducts($query)
+    {
+        // Ensure $query is safe for the database
+        $stmt = $this->pdo->prepare("SELECT * FROM products WHERE name LIKE :query OR description LIKE :query");
+        $stmt->execute(['query' => '%' . $query . '%']);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 }
+
+
+
+
+
+
 
 
 

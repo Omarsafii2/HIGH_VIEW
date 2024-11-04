@@ -70,21 +70,28 @@ class ProductController {
     {
         $product = new Product();
         $category = new Category();
+
         $discount = new Discount();
         $discounts = $discount->all();
         $categories = $category->all();
         $type = new Type();
         $types = $type->all();
+        $discount = $product->getDiscountedProducts();
 
         // Pagination parameters
         $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $itemsPerPage = 21; // Define how many items you want per page
+        $itemsPerPage = 9;
         $offset = ($currentPage - 1) * $itemsPerPage;
 
         // Get paginated products and total count
         $products = $product->getPaginatedProducts($itemsPerPage, $offset);
         $totalProducts = $product->countAllProducts();
         $totalPages = ceil($totalProducts / $itemsPerPage);
+
+        // Retrieve images for each product
+        foreach ($products as &$prod) {
+            $prod['front_view'] = $product->getImageByProductId($prod['id'])['front_view'] ?? 'default.jpg';
+        }
 
         require 'views/products/product.view.php';
     }
@@ -95,10 +102,19 @@ class ProductController {
         $product = new Product();
         $category = new Category();
         $categories = $category->all();
+        $type = new Type();
+        $types = $type->all();
+
+
+        $discount = new Discount();
+        $discounts = $discount->all();
+        $discount = $product->getDiscountedProducts();
+
+
 
         $sort = $_POST['sort'] ?? 'all';
         $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $itemsPerPage = 21;
+        $itemsPerPage = 9;
         $offset = ($currentPage - 1) * $itemsPerPage;
 
         // Determine sorting method based on `sort` parameter
@@ -122,6 +138,11 @@ class ProductController {
         $totalPages = ceil($totalProducts / $itemsPerPage);
         $products = array_slice($products, $offset, $itemsPerPage);
 
+        foreach ($products as &$prod) {
+            $prod['front_view'] = $product->getImageByProductId($prod['id'])['front_view'] ?? 'default.jpg';
+        }
+
+
         require 'views/products/product.view.php';
     }
 
@@ -132,10 +153,25 @@ class ProductController {
         $product = new Product();
         $category = new Category();
         $categories = $category->all();
+        $discount = new Discount();
+        $discounts = $discount->all();
+        $discount = $product->getDiscountedProducts();
+        $type = new Type();
+        $types = $type->all();
 
-        $this->category = $_POST['categorySort'];
+
+        // Check if the category is set from POST or GET
+        if (isset($_POST['categorySort'])) {
+            $this->category = $_POST['categorySort'];
+        } elseif (isset($_GET['category_id'])) {
+            $this->category = $_GET['category_id'];
+        } else {
+            // Handle case when no category is selected
+            $this->category = null; // or set a default category
+        }
+
         $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $itemsPerPage = 21;
+        $itemsPerPage = 9;
         $offset = ($currentPage - 1) * $itemsPerPage;
 
         // Filter products by category and apply pagination
@@ -144,18 +180,77 @@ class ProductController {
         $totalPages = ceil($totalProducts / $itemsPerPage);
         $products = array_slice($products, $offset, $itemsPerPage);
 
+        foreach ($products as &$prod) {
+            $prod['front_view'] = $product->getImageByProductId($prod['id'])['front_view'] ?? 'default.jpg';
+        }
+
+
         require 'views/products/product.view.php';
     }
+
+    public function filterProducts()
+    {
+        $category = new Category();
+        $categories = $category->all();
+
+        $product = new Product();
+        $discount = new Discount();
+        $discounts = $discount->all();
+        $discount = $product->getDiscountedProducts();
+        $type = new Type();
+        $types = $type->all();
+
+        $typeId = $_POST['type_id'] ?? null;
+
+        if ($typeId) {
+            // Filter products by the selected type_id
+            $products = $product->getProductsByTypeId($typeId);
+        } else {
+            // If no type is selected, get all products
+            $products = $product->all();
+
+        }
+
+        $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $itemsPerPage = 9;
+        $offset = ($currentPage - 1) * $itemsPerPage;
+
+        // Filter products by category and apply pagination
+        $products = $product->orderByCategory($this->category);
+        $totalProducts = count($products);
+        $totalPages = ceil($totalProducts / $itemsPerPage);
+        $products = array_slice($products, $offset, $itemsPerPage);
+
+        foreach ($products as &$prod) {
+            $prod['front_view'] = $product->getImageByProductId($prod['id'])['front_view'] ?? 'default.jpg';
+        }
+
+
+
+
+
+
+        require 'views/products/product.view.php';
+    }
+
+
 
 
     public function showDetails(){
         $product = new Product();
         $product_image = new Product_images();
         $product_size = new Product_sizes();
-        $product_review = new UserReviews();
+        $product_review = new User_reviews();
         $category = new Category();
+        $review = new User_reviews();
+
+
 
         $id = $_GET['product_id'];
+        $productDetails = $product->find($id);
+        $reviews = $review->getReviewsByProductId($id);
+        // Assuming you have a method to get product details
+
         $categories = $category->getCategoryName($id);
         $product = $product->find($id);
         $product_images = $product_image->getProductImg($id);
@@ -167,9 +262,29 @@ class ProductController {
 
         require 'views/products/productDetails.view.php';
     }
+    public function showDetailsSearch($id) // Use the $id parameter directly
+    {
+        // Ensure the product ID is an integer
+        if (!filter_var($id, FILTER_VALIDATE_INT)) {
+            // Handle invalid ID with a redirect or an error message
+            header("Location: /error?message=Invalid product ID.");
+            exit; // Exit after redirecting
+        }
 
-
-
+        // Fetch product details from the model
+        $product = new Product();
+        $productDetails = $product->find($id); // Assuming this method exists
+dd($productDetails);
+        if ($productDetails) {
+            // Render your view with the product details
+            header("Location:views/products/searchResults.view.php");
+            exit;
+        } else {
+            // Handle case when the product is not found
+            header("Location: /error?message=Product not found.");
+            exit; // Exit after redirecting
+        }
+    }
 
 
 
