@@ -247,7 +247,6 @@ class ProductController {
 
 
         $id = $_GET['product_id'];
-
         $productDetails = $product->find($id);
         $reviews = $review->getReviewsByProductId($id);
         // Assuming you have a method to get product details
@@ -262,6 +261,29 @@ class ProductController {
         $user_reviews_name = $product_review->getUserName($id);
 
         require 'views/products/productDetails.view.php';
+    }
+    public function showDetailsSearch($id) // Use the $id parameter directly
+    {
+        // Ensure the product ID is an integer
+        if (!filter_var($id, FILTER_VALIDATE_INT)) {
+            // Handle invalid ID with a redirect or an error message
+            header("Location: /error?message=Invalid product ID.");
+            exit; // Exit after redirecting
+        }
+
+        // Fetch product details from the model
+        $product = new Product();
+        $productDetails = $product->find($id); // Assuming this method exists
+dd($productDetails);
+        if ($productDetails) {
+            // Render your view with the product details
+            header("Location:views/products/searchResults.view.php");
+            exit;
+        } else {
+            // Handle case when the product is not found
+            header("Location: /error?message=Product not found.");
+            exit; // Exit after redirecting
+        }
     }
 
 

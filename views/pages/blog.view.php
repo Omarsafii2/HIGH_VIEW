@@ -8,8 +8,8 @@
             <div class="col-first text-center">
                 <h1>Our Blog</h1>
                 <nav class="d-flex justify-content-center">
-                    <a href="index.html">Home <span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Blog</a>
+                    <a href="/">Home <span class="lnr lnr-arrow-right"></span></a>
+                    <a href="/blog">Blog</a>
                 </nav>
             </div>
         </div>
@@ -28,7 +28,7 @@
                             <article class="row blog_item align-items-center mb-5" style="border: 1px solid #e0e0e0; border-radius: 8px; background-color: #ffffff; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
                                 <div class="col-md-4" style="padding: 0;">
                                     <div class="blog_image" style="overflow: hidden; border-radius: 8px 0 0 8px; height: 250px;">
-                                        <img src="views/public/images/blog/cat-post/<?php echo htmlspecialchars($element['featured_img']); ?>" alt="Blog Image" class="img-fluid h-100 w-100 object-fit-cover">
+                                        <img src="views/public/images/category/<?php echo htmlspecialchars($element['featured_img']); ?>" alt="Blog Image" class="img-fluid h-100 w-100 object-fit-cover">
                                     </div>
                                 </div>
                                 <div class="col-md-8" style="padding: 0;">

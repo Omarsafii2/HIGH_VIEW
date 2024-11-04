@@ -144,6 +144,13 @@ class CartController
     }
 
     public function store() {
+        // Start session if not already started
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Check if the user is logged in
+
 
         // Ensure the form was submitted via POST and required fields are set
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'], $_POST['quantity'])) {
@@ -164,23 +171,13 @@ class CartController
 
             // Validate the quantity
             if ($quantity > 0 && $quantity <= $stock) {
-                // Check if the product is already in the cart
-                $existingProduct = $this->cartModel->findByProductId($productId);
-
-                if (!$existingProduct) {
-                    // If not in cart, add it with the specified quantity
-                    $this->cartModel->addProductToCart($productId, $quantity);
-                    header("Location: /products?message=Product added to your cart");
-                    exit();
-                } else {
-                    // If already in cart, update the quantity with the new quantity
-                    $this->cartModel->updateQuantity($productId, $quantity); // Set the quantity directly to the new one
-                    header("Location: /products?message=Cart updated successfully");
-                    exit();
-                }
+                // Directly add the product to the cart with the specified quantity
+                $this->cartModel->addProductToCart($productId, $quantity);
+                header("Location: /products?message=Product added to your cart");
+                exit();
             } else {
                 // Handle invalid quantity
-                header("Location: /products?error= more than stock available");
+                header("Location: /products?error=Quantity exceeds stock available");
                 exit();
             }
         } else {
@@ -189,6 +186,7 @@ class CartController
             exit();
         }
     }
+
 
 
 

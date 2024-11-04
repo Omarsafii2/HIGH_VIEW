@@ -253,6 +253,15 @@ class Product extends Model
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function searchProducts($query)
+    {
+        // Ensure $query is safe for the database
+        $stmt = $this->pdo->prepare("SELECT * FROM products WHERE name LIKE :query OR description LIKE :query");
+        $stmt->execute(['query' => '%' . $query . '%']);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 
 

@@ -125,7 +125,7 @@
                     <div class="custom-card custom-card-just-text" data-background="color" data-color="brown" data-radius="none">
                         <div class="custom-content">
                             <h6 class="custom-category">Discount</h6>
-                            <h4 class="custom-title"><a href="#"><?php echo $discount[0]['name']; ?></a></h4>
+
                             <img loading="lazy" src="/views/public/images/product/<?php echo $discount[0]['front_view']; ?>" alt="<?php echo $discount[0]['name']; ?>" class="img-fluid">
                         </div>
                     </div> <!-- end custom-card -->
@@ -175,6 +175,7 @@
                     <?php foreach ($latestProducts as $product): ?>
                         <div class="col-lg-3 col-md-6">
                             <div class="single-product">
+                                <a href="/category/details?product_id=<?php echo $product['id']; ?>">
                                 <img  loading="lazy"class="img-fluid" src="../../../views/public/images/product/<?= htmlspecialchars($product['front_view']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
                                 <div class="product-details">
                                     <h6><?= htmlspecialchars($product['name']) ?></h6>
@@ -184,15 +185,19 @@
                                             <h6 class="l-through">$<?= number_format($product['price'], 2) ?></h6>
                                         <?php endif; ?>
                                     </div>
+                                </a>
                                     <div class="prd-bottom">
-                                        <a href="/category/details/addCart" class="social-info">
-                                            <span class="ti-bag"></span>
-                                            <p class="hover-text">add to bag</p>
-                                        </a>
-                                        <a href="/category/details?product_id=<?php echo $product['id'];?>" class="social-info">
-                                            <span class="lnr lnr-move"></span>
-                                            <p class="hover-text">view more</p>
-                                        </a>
+                                        <form action="/category/details/addCart" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <input type="hidden" id="quantity" name="quantity" value="1">
+                                            <button type="submit" class="btn btn-warning w-100 mb-2">
+                                                <i class="fa fa-shopping-cart"></i> Add to Cart
+                                            </button>
+                                        </form>
+                                        <form action="/category/details/create" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <button id="wishlistButton" type="submit" class="btn btn-primary w-100" onclick="toggleWishlist()">Add to Wishlist</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -221,24 +226,31 @@
                     <?php foreach ($bestSellerProducts as $product): ?>
                         <div class="col-lg-3 col-md-6">
                             <div class="single-product">
+                                <a href="/category/details?product_id=<?php echo $product['id']; ?>">
                                 <img loading="lazy" class="img-fluid" src="../../views/public/images/product/<?= htmlspecialchars($product['front_view']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
                                 <div class="product-details">
+
                                     <h6><?= htmlspecialchars($product['name']) ?></h6>
                                     <div class="price">
+
                                         <h6>$<?= number_format($product['newprice'], 2) ?></h6>
                                         <?php if (isset($product['newprice']) && $product['newprice'] < $product['price']): ?>
                                             <h6 class="l-through">$<?= number_format($product['price'], 2) ?></h6>
                                         <?php endif; ?>
                                     </div>
+                                </a>
                                     <div class="prd-bottom">
-                                        <a href="your-link-here" class="social-info">
-                                            <span class="ti-bag"></span>
-                                            <p class="hover-text">add to bag</p>
-                                        </a>
-                                        <a href="your-link-here" class="social-info">
-                                            <span class="lnr lnr-move"></span>
-                                            <p class="hover-text">view more</p>
-                                        </a>
+                                        <form action="/category/details/addCart" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <input type="hidden" id="quantity" name="quantity" value="1">
+                                            <button type="submit" class="btn btn-warning w-100 mb-2">
+                                                <i class="fa fa-shopping-cart"></i> Add to Cart
+                                            </button>
+                                        </form>
+                                        <form action="/category/details/create" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <button id="wishlistButton" type="submit" class="btn btn-primary w-100" onclick="toggleWishlist()">Add to Wishlist</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -299,6 +311,7 @@
                     <?php if (!empty($products)): ?>
                         <?php foreach ($products as $product): ?>
                             <div class="single-exclusive-slider">
+                                <a href="/category/details?product_id=<?php echo $product['id']; ?>">
                                 <img  loading="lazy" class="img-fluid" src="../../views/public/images/product/<?= htmlspecialchars($product['image']) ?>" >
                                 <div class="product-details">
                                     <h6><?= $product['name'] ?></h6>
@@ -306,10 +319,19 @@
                                         <h6>$<?= number_format($product['new_price'], 2) ?></h6>
                                         <h6 class="l-through">$<?= number_format($product['price'], 2) ?></h6>
                                     </div>
-
-                                    <div class="add-bag d-flex align-items-center justify-content-center">
-                                        <a class="add-btn" href="/category/details/addCart"><span class="ti-bag"></span></a>
-                                        <span class="add-text text-uppercase">Add to Bag</span>
+                                </a>
+                                    <div class="prd-bottom">
+                                        <form action="/category/details/addCart" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <input type="hidden" id="quantity" name="quantity" value="1">
+                                            <button type="submit" class="btn btn-warning w-100 mb-2">
+                                                <i class="fa fa-shopping-cart"></i> Add to Cart
+                                            </button>
+                                        </form>
+                                        <form action="/category/details/create" method="POST" style="display:inline;">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <button id="wishlistButton" type="submit" class="btn btn-primary w-100" onclick="toggleWishlist()">Add to Wishlist</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

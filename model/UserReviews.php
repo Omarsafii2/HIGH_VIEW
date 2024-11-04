@@ -55,19 +55,29 @@ class User_reviews extends Model
     }
 
 
-
+public $id=9;
 
     public function addReview($data) {
-        $sql = "INSERT INTO user_review (id_product, review, rate) 
-                    VALUES (:product_id, :review, :rate)";
+        // Remove the check for user login
+        // Prepare the SQL statement
+        $sql = "INSERT INTO user_review (id_user, id_product, review, rate) 
+        VALUES (:user_id, :product_id, :review, :rate)";
+
         $stmt = $this->pdo->prepare($sql);
+
+        // Bind parameters
+        // Allow user_id to be null if the user is not logged in
+        $userId = $_SESSION['user_id'] ?? null; // Get user_id from session or set to null
+        $stmt->bindParam(':user_id', $this->id, PDO::PARAM_INT);
         $stmt->bindParam(':product_id', $data['product_id'], PDO::PARAM_INT);
-        // $stmt->bindParam(':user_id', $data['user_id'], PDO::PARAM_INT);
         $stmt->bindParam(':review', $data['review'], PDO::PARAM_STR);
         $stmt->bindParam(':rate', $data['rate'], PDO::PARAM_INT);
 
+        // Execute the statement and return the result
         return $stmt->execute();
     }
+
+
 
     // Assuming you're using a Review model
 
@@ -83,6 +93,8 @@ class User_reviews extends Model
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
 }
 
 

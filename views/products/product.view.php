@@ -64,7 +64,7 @@
                 <h1>Shop Category page</h1>
                 <nav class="d-flex align-items-center">
                     <a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="/category" >Shop<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="/category" >Shop</a>
 
                 </nav>
             </div>
@@ -158,7 +158,7 @@
                                 <img class="img-fluid" src="../views/public/images/product/<?php echo $product['front_view']; ?>" loading="lazy">
                                 <hr>
                                 <div class="product-details">
-                                    <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                                    <h3 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;"><?php echo htmlspecialchars($product['name']); ?></h3>
                                     <div class="price">
                                         <p>Price: $<?php echo htmlspecialchars($product['price']); ?></p>
                                     </div>
@@ -259,7 +259,7 @@
             <div class="col-lg-3">
                 <div class="ctg-right">
                     <a href="#" target="_blank">
-                        <img class="img-fluid d-block mx-auto" src="../public/images/discountImg.avif" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../../views/public/images/category/c5.jpg" alt="">
                     </a>
                 </div>
             </div>

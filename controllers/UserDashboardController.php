@@ -5,25 +5,18 @@ require 'model/Faviorte.php';
 require 'model/UserReviews.php';
 require 'model/Contact.php';
 require 'model/Orders.php';
-require 'model/Cancellation_fees.php';
+//require 'model/CancellationFees.php';
+
 class UserDashboardController
 {
-
     public $id;
 
     public function __construct() {
-
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
 
-
-        if (isset($_SESSION['user'])) {
-            // Assuming $_SESSION['user'] is an associative array with an 'id' key
-            $this->id = $_SESSION['user']['id']; // Adjust as necessary
-        } else {
-            $this->id = null;
-        }
+        $this->id = $_SESSION['user']['id'] ?? null;
     }
 
     public function show()
@@ -31,44 +24,40 @@ class UserDashboardController
         $user = new User();
         $users = $user->find($this->id);
 
-       $_SESSION['firstName']= $users['first_name'];
-       $_SESSION['secondName']= $users['last_name'];
-       $_SESSION['img']= $users['img'];
+        if ($users) {
+            $_SESSION['firstName'] = $users['first_name'];
+            $_SESSION['secondName'] = $users['last_name'];
+            $_SESSION['img'] = $users['img'];
+        }
 
         $product = new Product();
         $products = $product->getProducts();
-//var_dump($products);
-        // Pass $users to header and index view files
+
         require 'views/user_profile/index.php';
     }
 
-
-
     public function showUser()
     {
-//    echo 'hello from inside the user controller';
-        $usersP = new User();
-        $userP = $usersP->find($this->id);
-        require 'views/user_profile/profile.php';
+        $user = new User();
+        $userProfile = $user->find($this->id);
 
+        require 'views/user_profile/profile.php';
     }
 
-
-    public function showPivacyPage(){
+    public function showPrivacyPage() {
         require 'views/pages/securityAndPrivacy.php';
     }
-    public function showHelpPage(){
+
+    public function showHelpPage() {
         require 'views/pages/helpAndSupport.php';
     }
 
-    public function showContactPage(){
+    public function showContactPage() {
         require 'views/user_profile/contact.php';
     }
 
-
     public function edit() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Sanitize and validate input data as needed
             $data = [
                 'first_name' => htmlspecialchars(trim($_POST['firstName'])),
                 'last_name' => htmlspecialchars(trim($_POST['lastName'])),
@@ -77,85 +66,72 @@ class UserDashboardController
                 'city' => htmlspecialchars(trim($_POST['city'])),
                 'district' => htmlspecialchars(trim($_POST['district'])),
                 'street' => htmlspecialchars(trim($_POST['street'])),
-                'building_num' => htmlspecialchars(trim($_POST['b_number']))
+                'building_num' => htmlspecialchars(trim($_POST['b_number'])),
             ];
 
-            // Hash the new password only if it's provided
             if (!empty(trim($_POST['newPassword']))) {
                 $data['password'] = password_hash(trim($_POST['newPassword']), PASSWORD_DEFAULT);
             }
 
-            // Perform the update
             $user = new User();
             $updateResult = $user->update($this->id, $data);
 
-            // Set feedback message for Toast notification
-            if ($updateResult) {
-                $_SESSION['status'] = 'success';
-                $_SESSION['message'] = 'Edited successfully';
-            } else {
-                $_SESSION['status'] = 'error';
-                $_SESSION['message'] = 'Error updating user';
-            }
+            $_SESSION['status'] = $updateResult ? 'success' : 'error';
+            $_SESSION['message'] = $updateResult ? 'Edited successfully' : 'Error updating user';
 
-            // Redirect back to profile to show feedback
             header('Location: /user/profile');
             exit;
         }
     }
 
-
-
-
-
-    public function getFaviorte(){
-        $faviorte = new Faviorte();
-        $faviortes=$faviorte->favorite($this->id);
-//        dd($faviortes);
+    public function getFavorite() {
+        $favorite = new Faviorte();
+        $favorites = $favorite->getUserFavorites($this->id);
         require 'views/user_profile/fav.php';
     }
 
 
-    public function showreview()
+    public function showReview()
     {
-        $review = new UserReviews();
-        $reviews = $review->getReviews($this->id);
-    require 'views/user_profile/reviews.php';
+        $review = new User_reviews();
+        $reviews = $review->getReviewsByProductId($this->id);
+
+        require 'views/user_profile/reviews.php';
     }
 
-
-
-
-    public function showContact(){
+    public function showContact() {
         $contact = new Contact();
         $contacts = $contact->getContact($this->id);
+
         require "views/user_profile/contact.php";
     }
 
     public function showOrderHistory() {
         $orders = new Orders();
+        $status = $_GET['status'] ?? null;
 
-        $status = isset($_GET['status']) && !empty($_GET['status']) ? $_GET['status'] : null;
+        $orderDetails = $status ? $orders->onStatus($this->id, $status) : $orders->getOrderDetails($this->id);
 
-        if ($status) {
-            $orderDetails = $orders->onStatus($this->id, $status);
-        } else {
-            $orderDetails = $orders->getOrderDetails($this->id); // Fetch all orders if no status selected
-        }
-        // Fetch counts for different order statuses
         $totalOrders = $orders->getOrders($this->id);
-        $deliveredOrders = $orders->getNumberDelivered($this->id);
-        $cancelledOrders = $orders->getNumberCancelled($this->id);
-        $pendingOrders = $orders->getNumberPending($this->id);
-        $processingOrders = $orders->getNumberProcessing($this->id);
-        $shippedOrders = $orders->getNumberShipped($this->id);
+        $orderCounts = [
+            'delivered' => $orders->getNumberDelivered($this->id),
+            'cancelled' => $orders->getNumberCancelled($this->id),
+            'pending' => $orders->getNumberPending($this->id),
+            'processing' => $orders->getNumberProcessing($this->id),
+            'shipped' => $orders->getNumberShipped($this->id),
+        ];
 
-        $ordersData = []; // Structure orders and their items
+        $ordersData = $this->formatOrdersData($orderDetails);
+
+        require 'views/user_profile/orders.php';
+    }
+
+    private function formatOrdersData($orderDetails) {
+        $ordersData = [];
 
         foreach ($orderDetails as $row) {
             $orderId = $row['order_id'];
 
-            // Initialize order details if it’s a new order
             if (!isset($ordersData[$orderId])) {
                 $ordersData[$orderId] = [
                     'order_id' => $row['order_id'],
@@ -170,7 +146,6 @@ class UserDashboardController
                 ];
             }
 
-            // Append each product as an item within the order's 'items' array
             $ordersData[$orderId]['items'][] = [
                 'product_id' => $row['product_id'],
                 'product_name' => $row['product_name'],
@@ -182,52 +157,32 @@ class UserDashboardController
             ];
         }
 
-        // Load the view, passing the organized orders data and order counts
-        require 'views/user_profile/orders.php';
+        return $ordersData;
     }
 
-
-public function cancelOrder($id , $status){
-        $order= new Orders();
+    public function cancelOrder($id, $status) {
+        $order = new Orders();
         $order->orderCancel($id);
 
-        $cancel=new Cancellation_fees();
-  if($status == 'Delivered'){
-      $data=[
-          'fee_amount'=>'15.00',
-          'user_id'=>$this->id,
-          'status'=>'Delivered'
-      ];
-      $cancel->create($data);
-  }else if($status == 'Shipped'){
-      $data=[
-          'fee_amount'=>'10.00',
-          'user_id'=>$this->id,
-          'status'=>'Shipped'
-      ];
-      $cancel->create($data);
-  }else if($status == 'Pending' ){
-      $data=[
-          'fee_amount'=>'5.00',
-          'user_id'=>$this->id,
-          'status'=>'Pending'
-      ];
-      $cancel->create($data);
-  }else if($status == 'Processing'){
-      $data=[
-          'fee_amount'=>'5.00',
-          'user_id'=>$this->id,
-          'status'=>'Processing'
-      ];
-      $cancel->create($data);
-  }
-header('Location: /user/order');
-exit();
-}
+        $cancel = new CancellationFees();
+        $feeAmounts = [
+            'Delivered' => '15.00',
+            'Shipped' => '10.00',
+            'Pending' => '5.00',
+            'Processing' => '5.00'
+        ];
 
+        if (isset($feeAmounts[$status])) {
+            $data = [
+                'fee_amount' => $feeAmounts[$status],
+                'user_id' => $this->id,
+                'status' => $status
+            ];
+            $cancel->create($data);
+        }
 
-
-
-
+        header('Location: /user/order');
+        exit();
+    }
 
 }

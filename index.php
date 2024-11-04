@@ -14,7 +14,7 @@ $router = new Router();
 $router->get('/user', 'UserDashboardController@show');
 $router->get('/user/profile', 'UserDashboardController@showUser');
 $router->get('/user/privacy', 'UserDashboardController@showPivacyPage');
-$router->get('/user/fav', 'UserDashboardController@getFaviorte');
+$router->get('/user/fav', 'UserDashboardController@getFavorite');
 $router->get('/user/review', 'UserDashboardController@showreview');
 $router->get('/user/help', 'UserDashboardController@showHelpPage');
 $router->get('/user/contact', 'UserDashboardController@showContact');
@@ -30,6 +30,7 @@ $router->get('/forgot', "UserController@showforgot");
 $router->post('/register', "UserController@registerUser");
 $router->post('/login', "UserController@loginUser");
 $router->get('/logout', "UserController@logoutUser");
+$router->post('/review/store', 'ReviewController@store');
 
 // Additional pages
 $router->post('/contact/submitMessage', 'ContactController@submitMessage');
@@ -57,6 +58,8 @@ $router->get('/confirmation', 'ConfirmationController@getOrderInfo');
 $router->post('/confirmation/edit', 'ConfirmationController@editUserInfo');
 $router->get('/cart', 'CartController@showCart');
 $router->post('/cart/delete/{id}', 'CartController@deleteFromCart');
+$router->post('/product/details/{id}', 'ProductController@showDetailsSearch');
+
 $router->post('/cart/coupon', 'CartController@applyCoupon');
 $router->post('/cart/update', 'CartController@updateCart');
 $router->post('/saveOrder', 'ConfirmationController@confirmOrder');
@@ -64,7 +67,7 @@ $router->post('/saveOrder', 'ConfirmationController@confirmOrder');
 // Shop routes
 $router->get('/category', 'ProductController@show');
 $router->post('/category', 'ProductController@filter');
-$router->post('/category/filter', 'ProductController@categoryFilter');
+$router->get('/category/filter', 'ProductController@categoryFilter');
 $router->get('/category/details', 'ProductController@showDetails');
 $router->post('/category/details/create', 'FavoriteController@store');
 $router->post('/category/details/addCart', 'CartController@store');
